@@ -233,10 +233,18 @@ function checkColorMatch(button) {
     if (playerSequence.length === colorSequence.length) {
         gameScore += colorSequence.length * 10;
         updateGameScore();
-        setTimeout(() => {
-            alert('Bravo ! Vous avez réussi !');
-            startColorSequence();
-        }, 500);
+        // Only show success message when game is complete (e.g., after 5 successful rounds)
+        if (colorSequence.length >= 5) {
+            setTimeout(() => {
+                alert('Félicitations ! Vous avez complété le jeu !');
+                closeGame();
+            }, 500);
+        } else {
+            // Continue to next round without message
+            setTimeout(() => {
+                startColorSequence();
+            }, 500);
+        }
     }
 }
 
@@ -327,10 +335,18 @@ function checkPatternMatch(button) {
     if (playerPatternSequence.length === patternSequence.length) {
         gameScore += patternSequence.length * 10;
         updateGameScore();
-        setTimeout(() => {
-            alert('Bravo ! Vous avez réussi !');
-            startPatternSequence();
-        }, 500);
+        // Only show success message when game is complete (e.g., after 5 successful rounds)
+        if (patternSequence.length >= 5) {
+            setTimeout(() => {
+                alert('Félicitations ! Vous avez complété le jeu !');
+                closeGame();
+            }, 500);
+        } else {
+            // Continue to next round without message
+            setTimeout(() => {
+                startPatternSequence();
+            }, 500);
+        }
     }
 }
 
@@ -1003,9 +1019,11 @@ function checkMatch() {
         card2.classList.remove('flipped');
         card1.textContent = '';
         card2.textContent = '';
+        // Add a small delay before allowing new moves
+        setTimeout(() => {
+            flippedCards = [];
+        }, 500);
     }
-    
-    flippedCards = [];
 }
 
 // Word game functions
@@ -1032,10 +1050,18 @@ function selectLetter(button, letter, word) {
         if (selectedLetters.join('') === word) {
             gameScore += 20;
             updateGameScore();
-            setTimeout(() => {
-                alert('Félicitations ! Vous avez trouvé le mot !');
-                closeGame();
-            }, 500);
+            // Only show success message when game is complete (e.g., after 3 successful words)
+            if (gameScore >= 60) {
+                setTimeout(() => {
+                    alert('Félicitations ! Vous avez complété le jeu !');
+                    closeGame();
+                }, 500);
+            } else {
+                // Continue to next word without message
+                setTimeout(() => {
+                    startWordGame();
+                }, 500);
+            }
         } else {
             setTimeout(() => {
                 alert('Essayez encore !');
