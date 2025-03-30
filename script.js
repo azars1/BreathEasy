@@ -612,7 +612,7 @@ function updateStreakManually(success) {
     } else {
         userData.streak = 0;
         userData.lastCheckIn = today;
-        alert('It\'s okay to start over. Every day is a new opportunity to begin again. You've got this! 🌱');
+        alert("It's okay to start over. Every day is a new opportunity to begin again. You've got this! 🌱");
     }
     
     saveUserData();
