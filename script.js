@@ -131,6 +131,25 @@ const supportMessages = [
     "You've got this! One day at a time."
 ];
 
+// Game state
+let currentGame = null;
+let gameScore = 0;
+
+// Game words for word scramble
+const gameWords = [
+    { word: 'HEALTHY', hint: 'Good for your body' },
+    { word: 'MINDFUL', hint: 'Being present in the moment' },
+    { word: 'STRONG', hint: 'Having power and resilience' },
+    { word: 'FREEDOM', hint: 'Being free from addiction' },
+    { word: 'ENERGY', hint: 'Vitality and power' }
+];
+
+// Memory game cards
+const memoryCards = [
+    '🌟', '🌟', '💪', '💪', '🧘', '🧘', '🌱', '🌱',
+    '🎯', '🎯', '💧', '💧', '🌈', '🌈', '🌞', '🌞'
+];
+
 // Initialize the app
 function initApp() {
     loadUserData();
@@ -647,6 +666,201 @@ function initStreakButtons() {
     } else {
         streakSection.appendChild(streakControls);
     }
+}
+
+// Start memory game
+function startMemoryGame() {
+    currentGame = 'memory';
+    gameScore = 0;
+    updateGameScore();
+    showGameArea();
+    
+    const gameContent = document.getElementById('gameContent');
+    gameContent.innerHTML = `
+        <h3>Memory Match</h3>
+        <p>Match pairs of cards to earn points!</p>
+        <div class="memory-grid"></div>
+    `;
+    
+    const grid = gameContent.querySelector('.memory-grid');
+    const shuffledCards = [...memoryCards].sort(() => Math.random() - 0.5);
+    
+    shuffledCards.forEach((card, index) => {
+        const cardElement = document.createElement('div');
+        cardElement.className = 'memory-card';
+        cardElement.dataset.card = card;
+        cardElement.dataset.index = index;
+        cardElement.onclick = () => flipCard(cardElement);
+        grid.appendChild(cardElement);
+    });
+}
+
+// Start breath game
+function startBreathGame() {
+    currentGame = 'breath';
+    gameScore = 0;
+    updateGameScore();
+    showGameArea();
+    
+    const gameContent = document.getElementById('gameContent');
+    gameContent.innerHTML = `
+        <div class="breath-game">
+            <h3>Breath Bubble</h3>
+            <p>Pop bubbles while practicing your breathing!</p>
+            <div id="bubbleContainer" style="height: 400px; position: relative;"></div>
+        </div>
+    `;
+    
+    const container = document.getElementById('bubbleContainer');
+    createBubble(container);
+}
+
+// Start word game
+function startWordGame() {
+    currentGame = 'word';
+    gameScore = 0;
+    updateGameScore();
+    showGameArea();
+    
+    const randomWord = gameWords[Math.floor(Math.random() * gameWords.length)];
+    const scrambledWord = randomWord.word.split('').sort(() => Math.random() - 0.5).join('');
+    
+    const gameContent = document.getElementById('gameContent');
+    gameContent.innerHTML = `
+        <div class="word-game">
+            <h3>Word Scramble</h3>
+            <p>Hint: ${randomWord.hint}</p>
+            <div class="word-display">${scrambledWord}</div>
+            <div class="letter-buttons"></div>
+        </div>
+    `;
+    
+    const letterButtons = gameContent.querySelector('.letter-buttons');
+    randomWord.word.split('').forEach(letter => {
+        const button = document.createElement('button');
+        button.className = 'letter-button';
+        button.textContent = letter;
+        button.onclick = () => selectLetter(button, letter, randomWord.word);
+        letterButtons.appendChild(button);
+    });
+}
+
+// Memory game functions
+let flippedCards = [];
+let matchedPairs = 0;
+
+function flipCard(card) {
+    if (flippedCards.length === 2 || card.classList.contains('flipped')) return;
+    
+    card.classList.add('flipped');
+    card.textContent = card.dataset.card;
+    flippedCards.push(card);
+    
+    if (flippedCards.length === 2) {
+        setTimeout(checkMatch, 1000);
+    }
+}
+
+function checkMatch() {
+    const [card1, card2] = flippedCards;
+    if (card1.dataset.card === card2.dataset.card) {
+        matchedPairs++;
+        gameScore += 10;
+        updateGameScore();
+        
+        if (matchedPairs === memoryCards.length / 2) {
+            setTimeout(() => {
+                alert('Congratulations! You won!');
+                closeGame();
+            }, 500);
+        }
+    } else {
+        card1.classList.remove('flipped');
+        card2.classList.remove('flipped');
+        card1.textContent = '';
+        card2.textContent = '';
+    }
+    
+    flippedCards = [];
+}
+
+// Breath game functions
+function createBubble(container) {
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    
+    const size = Math.random() * 50 + 30;
+    bubble.style.width = `${size}px`;
+    bubble.style.height = `${size}px`;
+    
+    const startX = Math.random() * (container.offsetWidth - size);
+    const startY = container.offsetHeight + size;
+    
+    bubble.style.left = `${startX}px`;
+    bubble.style.top = `${startY}px`;
+    
+    bubble.onclick = () => {
+        gameScore += 5;
+        updateGameScore();
+        bubble.remove();
+        createBubble(container);
+    };
+    
+    container.appendChild(bubble);
+    
+    const duration = Math.random() * 3000 + 2000;
+    bubble.style.transition = `top ${duration}ms linear`;
+    
+    setTimeout(() => {
+        bubble.style.top = `-${size}px`;
+        setTimeout(() => bubble.remove(), duration);
+        createBubble(container);
+    }, 100);
+}
+
+// Word game functions
+let selectedLetters = [];
+
+function selectLetter(button, letter, word) {
+    if (button.classList.contains('used')) return;
+    
+    selectedLetters.push(letter);
+    button.classList.add('used');
+    
+    const wordDisplay = document.querySelector('.word-display');
+    wordDisplay.textContent = selectedLetters.join('');
+    
+    if (selectedLetters.length === word.length) {
+        if (selectedLetters.join('') === word) {
+            gameScore += 20;
+            updateGameScore();
+            setTimeout(() => {
+                alert('Congratulations! You solved the word!');
+                closeGame();
+            }, 500);
+        } else {
+            setTimeout(() => {
+                alert('Try again!');
+                closeGame();
+            }, 500);
+        }
+    }
+}
+
+// Game utility functions
+function showGameArea() {
+    document.getElementById('gameArea').style.display = 'block';
+}
+
+function closeGame() {
+    document.getElementById('gameArea').style.display = 'none';
+    currentGame = null;
+    gameScore = 0;
+    updateGameScore();
+}
+
+function updateGameScore() {
+    document.getElementById('gameScore').textContent = `Score: ${gameScore}`;
 }
 
 // Initialize the app when the page loads

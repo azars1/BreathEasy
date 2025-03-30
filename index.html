@@ -76,6 +76,32 @@
             </div>
         </div>
 
+        <!-- Mini Games Section -->
+        <div class="section games-section">
+            <h2>Fun Distractions</h2>
+            <div class="games-container">
+                <div class="game-card" onclick="startMemoryGame()">
+                    <h3>Memory Match</h3>
+                    <p>Match pairs of cards to earn points!</p>
+                </div>
+                <div class="game-card" onclick="startBreathGame()">
+                    <h3>Breath Bubble</h3>
+                    <p>Pop bubbles while practicing breathing!</p>
+                </div>
+                <div class="game-card" onclick="startWordGame()">
+                    <h3>Word Scramble</h3>
+                    <p>Unscramble words related to healthy living!</p>
+                </div>
+            </div>
+            <div id="gameArea" class="game-area" style="display: none;">
+                <div class="game-header">
+                    <span id="gameScore">Score: 0</span>
+                    <button onclick="closeGame()" class="close-game">×</button>
+                </div>
+                <div id="gameContent"></div>
+            </div>
+        </div>
+
         <!-- Community Support -->
         <div class="section community-section">
             <h2>Community Support</h2>
