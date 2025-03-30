@@ -440,13 +440,14 @@ function initNoteViewer() {
         
         if (canvas.notePositions) {
             canvas.notePositions.forEach(position => {
-                // Check if click is near the note icon (within 15px radius)
+                // Check if click is within the bar area (within 30px radius of the bar center)
                 const distance = Math.sqrt(
                     Math.pow(x - position.x, 2) + 
                     Math.pow(y - position.y, 2)
                 );
                 
-                if (distance < 15) {
+                // Increased click area to 30px radius (from 15px)
+                if (distance < 30) {
                     showNoteModal(position.note, position.date, position.mood, position.timeOfDay);
                 }
             });
@@ -626,7 +627,7 @@ function updateStreakManually(success) {
         } else if (userData.streak === 7) {
             message = 'Amazing! You\'ve completed your first week! 🎉';
         } else if (userData.streak === 30) {
-            message = 'Incredible! You've reached a full month! 🎊';
+            message = 'Incredible! You\'ve reached a full month! 🎊';
         } else if (userData.streak % 7 === 0) {
             message = `Congratulations! You've reached ${userData.streak} days! Keep going! 🎯`;
         } else {
