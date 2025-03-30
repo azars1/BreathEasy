@@ -297,10 +297,16 @@ function logMood(mood) {
         timeOfDay: now.getHours() < 12 ? 'morning' : 
                    now.getHours() < 17 ? 'afternoon' : 'evening'
     };
+    
+    // Add to mood history
     userData.moodHistory.push(moodEntry);
+    
+    // Store note if provided
     if (note) {
         userData.moodNotes[moodEntry.timestamp] = note;
     }
+    
+    // Save and update immediately
     saveUserData();
     updateMoodHistory();
     
@@ -620,7 +626,7 @@ function updateStreakManually(success) {
         } else if (userData.streak === 7) {
             message = 'Amazing! You\'ve completed your first week! 🎉';
         } else if (userData.streak === 30) {
-            message = 'Incredible! You\'ve reached a full month! 🎊';
+            message = 'Incredible! You've reached a full month! 🎊';
         } else if (userData.streak % 7 === 0) {
             message = `Congratulations! You've reached ${userData.streak} days! Keep going! 🎯`;
         } else {
