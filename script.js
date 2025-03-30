@@ -1158,47 +1158,67 @@ function showAchievement(achievementId) {
 }
 
 // Tutorial System
-const tutorialSteps = [
-    {
-        title: 'Bienvenue sur BreathEasy',
-        content: 'Découvrez nos jeux et exercices pour améliorer votre bien-être mental.',
-        target: null
-    },
-    {
-        title: 'Jeux de Mémoire',
-        content: 'Testez votre mémoire avec nos jeux de correspondance et de motifs.',
-        target: '.games-section'
-    },
-    {
-        title: 'Exercices de Respiration',
-        content: 'Pratiquez des exercices de respiration guidés pour réduire le stress.',
-        target: '.breathing-exercise'
-    },
-    {
-        title: 'Suivi de l\'Humeur',
-        content: 'Enregistrez votre humeur quotidienne pour suivre votre progression.',
-        target: '.mood-selector'
-    }
-];
+const tutorialOverlay = document.getElementById('tutorialOverlay');
+const tutorialSteps = document.querySelectorAll('.tutorial-step');
+const tutorialPrev = document.querySelector('.tutorial-prev');
+const tutorialNext = document.querySelector('.tutorial-next');
+const tutorialSkip = document.querySelector('.tutorial-skip');
+const tutorialClose = document.querySelector('.tutorial-close');
+let currentStep = 0;
 
-let currentTutorialStep = 0;
-
-function showTutorial() {
-    const tutorial = document.querySelector('.tutorial-overlay');
-    const stepsContainer = document.querySelector('.tutorial-steps');
-    
-    stepsContainer.innerHTML = tutorialSteps.map((step, index) => `
-        <div class="tutorial-step ${index === currentTutorialStep ? 'active' : ''}">
-            <h3>${step.title}</h3>
-            <p>${step.content}</p>
-        </div>
-    `).join('');
-    
-    tutorial.style.display = 'flex';
+// Check if this is the first visit
+if (!localStorage.getItem('tutorialCompleted')) {
+    showTutorial();
 }
 
-document.querySelector('.tutorial-close').addEventListener('click', () => {
-    document.querySelector('.tutorial-overlay').style.display = 'none';
+function showTutorial() {
+    tutorialOverlay.style.display = 'flex';
+    showStep(0);
+    updateNavigationButtons();
+}
+
+function hideTutorial() {
+    tutorialOverlay.style.display = 'none';
+    localStorage.setItem('tutorialCompleted', 'true');
+}
+
+function showStep(stepIndex) {
+    tutorialSteps.forEach(step => step.classList.remove('active'));
+    tutorialSteps[stepIndex].classList.add('active');
+    currentStep = stepIndex;
+    updateNavigationButtons();
+}
+
+function nextStep() {
+    if (currentStep < tutorialSteps.length - 1) {
+        showStep(currentStep + 1);
+    } else {
+        hideTutorial();
+    }
+}
+
+function prevStep() {
+    if (currentStep > 0) {
+        showStep(currentStep - 1);
+    }
+}
+
+function updateNavigationButtons() {
+    tutorialPrev.disabled = currentStep === 0;
+    tutorialNext.textContent = currentStep === tutorialSteps.length - 1 ? 'Terminer' : 'Suivant';
+}
+
+// Tutorial Event Listeners
+tutorialNext.addEventListener('click', nextStep);
+tutorialPrev.addEventListener('click', prevStep);
+tutorialSkip.addEventListener('click', hideTutorial);
+tutorialClose.addEventListener('click', hideTutorial);
+
+// Close tutorial when clicking outside
+tutorialOverlay.addEventListener('click', (e) => {
+    if (e.target === tutorialOverlay) {
+        hideTutorial();
+    }
 });
 
 // High Score System
@@ -1295,12 +1315,6 @@ window.addEventListener('online', () => {
 window.addEventListener('offline', () => {
     showFeedback('Vous êtes hors ligne. Les données seront synchronisées plus tard.', 'error');
 });
-
-// Initialize tutorial on first visit
-if (!localStorage.getItem('tutorialShown')) {
-    showTutorial();
-    localStorage.setItem('tutorialShown', 'true');
-}
 
 // Initialize the app when the page loads
 document.addEventListener('DOMContentLoaded', initApp); 
