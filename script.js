@@ -702,10 +702,62 @@ function startMemoryGame() {
     });
 }
 
+// Breath game functions
+let activeBubbles = 0;
+const MAX_ACTIVE_BUBBLES = 3;
+
+function createBubble(container) {
+    // Check if we've reached the maximum number of active bubbles
+    if (activeBubbles >= MAX_ACTIVE_BUBBLES) {
+        // Wait a bit before trying to create another bubble
+        setTimeout(() => createBubble(container), 1000);
+        return;
+    }
+    
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    
+    const size = Math.random() * 50 + 30;
+    bubble.style.width = `${size}px`;
+    bubble.style.height = `${size}px`;
+    
+    const startX = Math.random() * (container.offsetWidth - size);
+    const startY = container.offsetHeight + size;
+    
+    bubble.style.left = `${startX}px`;
+    bubble.style.top = `${startY}px`;
+    
+    bubble.onclick = () => {
+        gameScore += 5;
+        updateGameScore();
+        bubble.remove();
+        activeBubbles--;
+        // Add a delay before creating a new bubble
+        setTimeout(() => createBubble(container), 500);
+    };
+    
+    container.appendChild(bubble);
+    activeBubbles++;
+    
+    const duration = Math.random() * 3000 + 2000;
+    bubble.style.transition = `top ${duration}ms linear`;
+    
+    setTimeout(() => {
+        bubble.style.top = `-${size}px`;
+        setTimeout(() => {
+            bubble.remove();
+            activeBubbles--;
+            // Add a delay before creating a new bubble
+            setTimeout(() => createBubble(container), 500);
+        }, duration);
+    }, 100);
+}
+
 // Start breath game
 function startBreathGame() {
     currentGame = 'breath';
     gameScore = 0;
+    activeBubbles = 0; // Reset active bubbles counter
     updateGameScore();
     showGameArea();
     
@@ -719,6 +771,7 @@ function startBreathGame() {
     `;
     
     const container = document.getElementById('bubbleContainer');
+    // Start with just one bubble
     createBubble(container);
 }
 
@@ -730,7 +783,7 @@ function startWordGame() {
     updateGameScore();
     showGameArea();
     
-    const randomWord = gameWords[Math.floor(Math.random() * gameWords.length)];
+    const randomWord = gameWords[Math.random() * gameWords.length];
     const scrambledWord = randomWord.word.split('').sort(() => Math.random() - 0.5).join('');
     
     const gameContent = document.getElementById('gameContent');
@@ -795,40 +848,6 @@ function checkMatch() {
     }
     
     flippedCards = [];
-}
-
-// Breath game functions
-function createBubble(container) {
-    const bubble = document.createElement('div');
-    bubble.className = 'bubble';
-    
-    const size = Math.random() * 50 + 30;
-    bubble.style.width = `${size}px`;
-    bubble.style.height = `${size}px`;
-    
-    const startX = Math.random() * (container.offsetWidth - size);
-    const startY = container.offsetHeight + size;
-    
-    bubble.style.left = `${startX}px`;
-    bubble.style.top = `${startY}px`;
-    
-    bubble.onclick = () => {
-        gameScore += 5;
-        updateGameScore();
-        bubble.remove();
-        createBubble(container);
-    };
-    
-    container.appendChild(bubble);
-    
-    const duration = Math.random() * 3000 + 2000;
-    bubble.style.transition = `top ${duration}ms linear`;
-    
-    setTimeout(() => {
-        bubble.style.top = `-${size}px`;
-        setTimeout(() => bubble.remove(), duration);
-        createBubble(container);
-    }, 100);
 }
 
 // Word game functions
