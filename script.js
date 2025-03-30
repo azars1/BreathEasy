@@ -736,7 +736,12 @@ function startWordGame() {
     `;
     
     const letterButtons = gameContent.querySelector('.letter-buttons');
-    randomWord.word.split('').forEach(letter => {
+    // Create array of letters and shuffle them
+    const letters = randomWord.word.split('');
+    const shuffledLetters = [...letters].sort(() => Math.random() - 0.5);
+    
+    // Add shuffled letters to buttons
+    shuffledLetters.forEach(letter => {
         const button = document.createElement('button');
         button.className = 'letter-button';
         button.textContent = letter;
