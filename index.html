@@ -3,16 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BreathEasy - Votre Compagnon de Sevrage</title>
-    <!-- Force new deployment -->
+    <title>BreathEasy - Votre Compagnon de Bien-être</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" aria-label="Changer le thème">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Feedback Message -->
+    <div class="feedback-message"></div>
+
+    <!-- Sound Controls -->
+    <div class="sound-controls">
+        <button class="sound-button" aria-label="Activer/Désactiver le son">
+            <i class="fas fa-volume-up"></i>
+        </button>
+        <button class="sound-button" aria-label="Activer/Désactiver la musique">
+            <i class="fas fa-music"></i>
+        </button>
+    </div>
+
+    <!-- Tutorial Overlay -->
+    <div class="tutorial-overlay" style="display: none;">
+        <div class="tutorial-content">
+            <button class="tutorial-close" aria-label="Fermer le tutoriel">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Bienvenue sur BreathEasy !</h2>
+            <p>Découvrez nos jeux et exercices pour améliorer votre bien-être mental.</p>
+            <div class="tutorial-steps">
+                <!-- Steps will be added dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievement Badge -->
+    <div class="achievement-badge" style="display: none;">
+        <i class="fas fa-trophy"></i>
+        <span class="achievement-text"></span>
+    </div>
+
     <div class="container">
         <header>
             <h1>BreathEasy</h1>
-            <p class="subtitle">Votre compagnon pour arrêter de vapoter</p>
+            <p class="subtitle">Votre compagnon quotidien pour le bien-être mental</p>
         </header>
+
+        <!-- Game Stats Section -->
+        <div class="game-stats">
+            <div class="high-score">
+                <i class="fas fa-star"></i>
+                <span>Meilleur score: <span id="highScore">0</span></span>
+            </div>
+            <div class="level-indicator">
+                <i class="fas fa-level-up-alt"></i>
+                <span>Niveau: <span id="currentLevel">1</span></span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" style="width: 0%"></div>
+        </div>
 
         <!-- Progress Section -->
         <div class="section progress-section">

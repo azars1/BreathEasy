@@ -1088,5 +1088,235 @@ function updateGameScore() {
     document.getElementById('gameScore').textContent = `Score : ${gameScore}`;
 }
 
+// Theme Management
+const themeToggle = document.querySelector('.theme-toggle');
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+function setTheme(isDark) {
+    document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+}
+
+// Initialize theme based on system preference
+setTheme(prefersDarkScheme.matches);
+
+themeToggle.addEventListener('click', () => {
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    setTheme(!isDark);
+});
+
+// Sound Management
+const soundButtons = document.querySelectorAll('.sound-button');
+let isSoundEnabled = true;
+let isMusicEnabled = true;
+
+soundButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        if (button.querySelector('.fa-volume-up')) {
+            isSoundEnabled = !isSoundEnabled;
+            button.innerHTML = isSoundEnabled ? 
+                '<i class="fas fa-volume-up"></i>' : 
+                '<i class="fas fa-volume-mute"></i>';
+        } else {
+            isMusicEnabled = !isMusicEnabled;
+            button.innerHTML = isMusicEnabled ? 
+                '<i class="fas fa-music"></i>' : 
+                '<i class="fas fa-music-slash"></i>';
+        }
+    });
+});
+
+// Loading Animation
+function showLoading() {
+    document.querySelector('.loading-overlay').style.display = 'flex';
+}
+
+function hideLoading() {
+    document.querySelector('.loading-overlay').style.display = 'none';
+}
+
+// Visual Feedback
+function showFeedback(message, type = 'success') {
+    const feedback = document.querySelector('.feedback-message');
+    feedback.textContent = message;
+    feedback.className = `feedback-message ${type}`;
+    feedback.style.display = 'block';
+    
+    setTimeout(() => {
+        feedback.style.display = 'none';
+    }, 3000);
+}
+
+// Progress Bar
+function updateProgress(percent) {
+    document.querySelector('.progress-bar').style.width = `${percent}%`;
+}
+
+// Achievement System
+const achievements = {
+    firstGame: { title: 'Premier Jeu', description: 'Complétez votre premier jeu', icon: 'gamepad' },
+    streakMaster: { title: 'Maître des Séries', description: 'Atteignez une série de 5 jours', icon: 'fire' },
+    perfectGame: { title: 'Jeu Parfait', description: 'Complétez un jeu sans erreur', icon: 'trophy' },
+    dailyPlayer: { title: 'Joueur Quotidien', description: 'Jouez pendant 7 jours consécutifs', icon: 'calendar-check' }
+};
+
+function showAchievement(achievementId) {
+    const achievement = achievements[achievementId];
+    const badge = document.querySelector('.achievement-badge');
+    badge.innerHTML = `
+        <i class="fas fa-${achievement.icon}"></i>
+        <span class="achievement-text">${achievement.title}</span>
+    `;
+    badge.style.display = 'flex';
+    
+    setTimeout(() => {
+        badge.style.display = 'none';
+    }, 5000);
+}
+
+// Tutorial System
+const tutorialSteps = [
+    {
+        title: 'Bienvenue sur BreathEasy',
+        content: 'Découvrez nos jeux et exercices pour améliorer votre bien-être mental.',
+        target: null
+    },
+    {
+        title: 'Jeux de Mémoire',
+        content: 'Testez votre mémoire avec nos jeux de correspondance et de motifs.',
+        target: '.games-section'
+    },
+    {
+        title: 'Exercices de Respiration',
+        content: 'Pratiquez des exercices de respiration guidés pour réduire le stress.',
+        target: '.breathing-exercise'
+    },
+    {
+        title: 'Suivi de l\'Humeur',
+        content: 'Enregistrez votre humeur quotidienne pour suivre votre progression.',
+        target: '.mood-selector'
+    }
+];
+
+let currentTutorialStep = 0;
+
+function showTutorial() {
+    const tutorial = document.querySelector('.tutorial-overlay');
+    const stepsContainer = document.querySelector('.tutorial-steps');
+    
+    stepsContainer.innerHTML = tutorialSteps.map((step, index) => `
+        <div class="tutorial-step ${index === currentTutorialStep ? 'active' : ''}">
+            <h3>${step.title}</h3>
+            <p>${step.content}</p>
+        </div>
+    `).join('');
+    
+    tutorial.style.display = 'flex';
+}
+
+document.querySelector('.tutorial-close').addEventListener('click', () => {
+    document.querySelector('.tutorial-overlay').style.display = 'none';
+});
+
+// High Score System
+let highScore = localStorage.getItem('highScore') || 0;
+document.getElementById('highScore').textContent = highScore;
+
+function updateHighScore(score) {
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('highScore', highScore);
+        document.getElementById('highScore').textContent = highScore;
+    }
+}
+
+// Level System
+let currentLevel = 1;
+document.getElementById('currentLevel').textContent = currentLevel;
+
+function updateLevel(score) {
+    const newLevel = Math.floor(score / 100) + 1;
+    if (newLevel > currentLevel) {
+        currentLevel = newLevel;
+        document.getElementById('currentLevel').textContent = currentLevel;
+        showAchievement('levelUp');
+    }
+}
+
+// Modify existing game functions to use new features
+function startGame(gameType) {
+    showLoading();
+    setTimeout(() => {
+        // Initialize game
+        switch(gameType) {
+            case 'memory':
+                startMemoryGame();
+                break;
+            case 'breath':
+                startBreathingExercise();
+                break;
+            case 'word':
+                startWordGame();
+                break;
+            case 'color':
+                startColorSequence();
+                break;
+            case 'pattern':
+                startPatternSequence();
+                break;
+        }
+        hideLoading();
+    }, 1000);
+}
+
+// Update game completion handlers
+function handleGameCompletion(score) {
+    updateHighScore(score);
+    updateLevel(score);
+    updateProgress((score % 100));
+    
+    if (score > 0) {
+        showFeedback('Félicitations !', 'success');
+    }
+}
+
+// Add difficulty levels to games
+const difficulties = {
+    easy: { multiplier: 1, timeLimit: 2000 },
+    medium: { multiplier: 1.5, timeLimit: 1500 },
+    hard: { multiplier: 2, timeLimit: 1000 }
+};
+
+let currentDifficulty = 'easy';
+
+function setDifficulty(difficulty) {
+    currentDifficulty = difficulty;
+    showFeedback(`Difficulté changée: ${difficulty}`, 'success');
+}
+
+// Modify existing game functions to use difficulty settings
+function startColorSequence() {
+    const difficulty = difficulties[currentDifficulty];
+    // ... existing code ...
+    setTimeout(() => {
+        // Show sequence
+    }, difficulty.timeLimit);
+}
+
+// Add offline support
+window.addEventListener('online', () => {
+    showFeedback('Vous êtes en ligne !', 'success');
+});
+
+window.addEventListener('offline', () => {
+    showFeedback('Vous êtes hors ligne. Les données seront synchronisées plus tard.', 'error');
+});
+
+// Initialize tutorial on first visit
+if (!localStorage.getItem('tutorialShown')) {
+    showTutorial();
+    localStorage.setItem('tutorialShown', 'true');
+}
+
 // Initialize the app when the page loads
 document.addEventListener('DOMContentLoaded', initApp); 
