@@ -726,6 +726,7 @@ function startBreathGame() {
 function startWordGame() {
     currentGame = 'word';
     gameScore = 0;
+    selectedLetters = []; // Reset selected letters
     updateGameScore();
     showGameArea();
     
@@ -868,6 +869,7 @@ function closeGame() {
     document.getElementById('gameArea').style.display = 'none';
     currentGame = null;
     gameScore = 0;
+    selectedLetters = []; // Reset selected letters when closing game
     updateGameScore();
 }
 
