@@ -482,6 +482,7 @@ function completeChallenge() {
     userData.points += 100;
     saveUserData();
     updateUI();
+    updateLevel(userData.points);
     alert('Bravo ! Vous avez gagné 100 points !');
     setDailyChallenge();
 }
@@ -514,6 +515,7 @@ function logMood(mood) {
     userData.points += 10;
     saveUserData();
     updateUI();
+    updateLevel(userData.points);
 }
 
 // Enhanced mood visualization with trend lines and notes
@@ -708,6 +710,7 @@ function showEmergencyHelp() {
     userData.points += 50;
     saveUserData();
     updateUI();
+    updateLevel(userData.points);
 }
 
 // Send a message to the community
@@ -729,6 +732,7 @@ function sendMessage() {
         userData.points += 25;
         saveUserData();
         updateUI();
+        updateLevel(userData.points);
     }
 }
 
@@ -1105,27 +1109,6 @@ themeToggle.addEventListener('click', () => {
     setTheme(!isDark);
 });
 
-// Sound Management
-const soundButtons = document.querySelectorAll('.sound-button');
-let isSoundEnabled = true;
-let isMusicEnabled = true;
-
-soundButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        if (button.querySelector('.fa-volume-up')) {
-            isSoundEnabled = !isSoundEnabled;
-            button.innerHTML = isSoundEnabled ? 
-                '<i class="fas fa-volume-up"></i>' : 
-                '<i class="fas fa-volume-mute"></i>';
-        } else {
-            isMusicEnabled = !isMusicEnabled;
-            button.innerHTML = isMusicEnabled ? 
-                '<i class="fas fa-music"></i>' : 
-                '<i class="fas fa-music-slash"></i>';
-        }
-    });
-});
-
 // Loading Animation
 function showLoading() {
     document.querySelector('.loading-overlay').style.display = 'flex';
@@ -1234,12 +1217,13 @@ function updateHighScore(score) {
 let currentLevel = 1;
 document.getElementById('currentLevel').textContent = currentLevel;
 
-function updateLevel(score) {
-    const newLevel = Math.floor(score / 100) + 1;
+function updateLevel(points) {
+    // Level up every 500 points
+    const newLevel = Math.floor(points / 500) + 1;
     if (newLevel > currentLevel) {
         currentLevel = newLevel;
         document.getElementById('currentLevel').textContent = currentLevel;
-        showAchievement('levelUp');
+        showFeedback(`Niveau ${currentLevel} atteint !`, 'success');
     }
 }
 

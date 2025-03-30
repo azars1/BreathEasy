@@ -832,7 +832,7 @@ h1 {
     background-color: var(--border-color);
 }
 
-/* Game Enhancements */
+/* Game Stats */
 .game-stats {
     display: flex;
     justify-content: space-between;
@@ -906,31 +906,6 @@ h1 {
     right: 10px;
     cursor: pointer;
     font-size: 24px;
-}
-
-/* Sound Controls */
-.sound-controls {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 1000;
-    display: flex;
-    gap: 10px;
-}
-
-.sound-button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: var(--text-color);
-    padding: 10px;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-
-.sound-button:hover {
-    background-color: var(--border-color);
 }
 
 /* Accessibility Improvements */
