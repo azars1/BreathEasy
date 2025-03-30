@@ -623,7 +623,15 @@ function updateStreakManually(success) {
 // Initialize streak management buttons
 function initStreakButtons() {
     const streakSection = document.querySelector('.progress-section');
-    if (!streakSection) return;
+    if (!streakSection) {
+        console.error('Progress section not found');
+        return;
+    }
+    
+    // Check if buttons already exist
+    if (streakSection.querySelector('.streak-controls')) {
+        return;
+    }
     
     const streakControls = document.createElement('div');
     streakControls.className = 'streak-controls';
@@ -632,7 +640,13 @@ function initStreakButtons() {
         <button onclick="updateStreakManually(false)" class="reset-button">Reset Streak</button>
     `;
     
-    streakSection.appendChild(streakControls);
+    // Insert after the stats div
+    const statsDiv = streakSection.querySelector('.stats');
+    if (statsDiv) {
+        statsDiv.insertAdjacentElement('afterend', streakControls);
+    } else {
+        streakSection.appendChild(streakControls);
+    }
 }
 
 // Initialize the app when the page loads
