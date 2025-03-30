@@ -410,7 +410,7 @@ function setDailyChallenge() {
         const text = document.querySelector('.breathing-text');
         if (circle && text) {
             circle.classList.remove('inhale', 'exhale', 'hold');
-            text.textContent = 'Ready to start?';
+            text.textContent = 'Prêt à commencer ?';
         }
     }
 }
@@ -432,26 +432,26 @@ function startBreathingExercise() {
         if (breathingExercise.breaths >= pattern.breaths) {
             breathingExercise.isActive = false;
             circle.classList.remove('inhale', 'exhale', 'hold');
-            text.textContent = 'Exercise complete!';
+            text.textContent = 'Exercice terminé !';
             return;
         }
         
         // Inhale
         circle.classList.add('inhale');
-        text.textContent = 'Breathe in...';
+        text.textContent = 'Inspirez...';
         
         setTimeout(() => {
             if (pattern.hold) {
                 // Hold
                 circle.classList.remove('inhale');
                 circle.classList.add('hold');
-                text.textContent = 'Hold...';
+                text.textContent = 'Retenez...';
                 
                 setTimeout(() => {
                     // Exhale
                     circle.classList.remove('hold');
                     circle.classList.add('exhale');
-                    text.textContent = 'Breathe out...';
+                    text.textContent = 'Expirez...';
                     
                     setTimeout(() => {
                         circle.classList.remove('exhale');
@@ -463,7 +463,7 @@ function startBreathingExercise() {
                 // Exhale
                 circle.classList.remove('inhale');
                 circle.classList.add('exhale');
-                text.textContent = 'Breathe out...';
+                text.textContent = 'Expirez...';
                 
                 setTimeout(() => {
                     circle.classList.remove('exhale');
@@ -550,7 +550,7 @@ function updateMoodHistory() {
         ctx.fillStyle = '#666';
         ctx.font = '16px Arial';
         ctx.textAlign = 'center';
-        ctx.fillText('No mood data for the past week', width/2, height/2);
+        ctx.fillText('Aucune donnée d\'humeur pour la semaine passée', width/2, height/2);
         return;
     }
     
