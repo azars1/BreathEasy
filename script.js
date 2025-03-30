@@ -835,8 +835,16 @@ function createBubble(container) {
 let selectedLetters = [];
 
 function selectLetter(button, letter, word) {
-    if (button.classList.contains('used')) return;
+    // If letter is already selected, deselect it
+    if (button.classList.contains('used')) {
+        button.classList.remove('used');
+        selectedLetters = selectedLetters.filter(l => l !== letter);
+        const wordDisplay = document.querySelector('.word-display');
+        wordDisplay.textContent = selectedLetters.join('');
+        return;
+    }
     
+    // Add new letter
     selectedLetters.push(letter);
     button.classList.add('used');
     
