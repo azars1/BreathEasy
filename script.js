@@ -32,38 +32,38 @@ let userData = {
 // Daily Challenges
 const challenges = [
     {
-        text: "Go vape-free for 24 hours",
+        text: "Rester sans vapoter pendant 24 heures",
         type: "general"
     },
     {
-        text: "Try a new hobby for 10 minutes",
+        text: "Essayer un nouveau passe-temps pendant 10 minutes",
         type: "general"
     },
     {
-        text: "Practice basic breathing exercise",
+        text: "Pratiquer un exercice de respiration basique",
         type: "breathing",
         pattern: "basic"
     },
     {
-        text: "Try calming breath technique",
+        text: "Essayer la technique de respiration apaisante",
         type: "breathing",
         pattern: "calming"
     },
     {
-        text: "Do energizing breathing exercise",
+        text: "Faire un exercice de respiration énergisant",
         type: "breathing",
         pattern: "energizing"
     },
     {
-        text: "Drink water instead of vaping",
+        text: "Boire de l'eau au lieu de vapoter",
         type: "general"
     },
     {
-        text: "Share your progress with a friend",
+        text: "Partager votre progression avec un ami",
         type: "general"
     },
     {
-        text: "Do a quick workout when you feel cravings",
+        text: "Faire un exercice rapide quand vous avez envie de vapoter",
         type: "general"
     }
 ];
@@ -88,47 +88,47 @@ let breathingExercise = {
 // Breathing exercise variations
 const breathingPatterns = {
     basic: {
-        name: "Basic Breathing",
+        name: "Respiration Basique",
         inhale: 4,
         exhale: 4,
         breaths: 5,
-        description: "Simple 4-4 breathing pattern"
+        description: "Pattern simple de respiration 4-4"
     },
     calming: {
-        name: "Calming Breath",
+        name: "Respiration Apaisante",
         inhale: 4,
         hold: 4,
         exhale: 8,
         breaths: 4,
-        description: "4-4-8 pattern for deep relaxation"
+        description: "Pattern 4-4-8 pour une relaxation profonde"
     },
     energizing: {
-        name: "Energizing Breath",
+        name: "Respiration Énergisante",
         inhale: 2,
         exhale: 2,
         breaths: 8,
-        description: "Quick 2-2 pattern for energy"
+        description: "Pattern rapide 2-2 pour l'énergie"
     }
 };
 
 // Badges
 const badges = [
-    { id: 'first_day', name: 'First Day', description: 'Complete your first vape-free day', icon: '🌟' },
-    { id: 'week_streak', name: 'Week Warrior', description: 'Maintain a 7-day streak', icon: '🏆' },
-    { id: 'month_master', name: 'Month Master', description: 'Stay vape-free for 30 days', icon: '👑' },
-    { id: 'community_hero', name: 'Community Hero', description: 'Help 5 other users', icon: '💪' },
-    { id: 'mindfulness_guru', name: 'Mindfulness Guru', description: 'Complete 10 breathing exercises', icon: '🧘' }
+    { id: 'first_day', name: 'Premier Jour', description: 'Complétez votre premier jour sans vapoter', icon: '🌟' },
+    { id: 'week_streak', name: 'Guerrier de la Semaine', description: 'Maintenez une série de 7 jours', icon: '🏆' },
+    { id: 'month_master', name: 'Maître du Mois', description: 'Restez sans vapoter pendant 30 jours', icon: '👑' },
+    { id: 'community_hero', name: 'Héros de la Communauté', description: 'Aidez 5 autres utilisateurs', icon: '💪' },
+    { id: 'mindfulness_guru', name: 'Gourou de la Pleine Conscience', description: 'Complétez 10 exercices de respiration', icon: '🧘' }
 ];
 
 // Emergency Support Messages
 const supportMessages = [
-    "Remember why you started this journey. You're stronger than you think!",
-    "Take deep breaths. This craving will pass in 3-5 minutes.",
-    "Drink water or chew gum to keep your mouth busy.",
-    "You're not alone. Many others are going through the same thing.",
-    "Think about all the money you're saving!",
-    "Your health is improving every minute you stay vape-free.",
-    "You've got this! One day at a time."
+    "Souvenez-vous pourquoi vous avez commencé ce voyage. Vous êtes plus fort que vous ne le pensez !",
+    "Respirez profondément. Cette envie passera dans 3-5 minutes.",
+    "Buvez de l'eau ou mâchez du chewing-gum pour occuper votre bouche.",
+    "Vous n'êtes pas seul. Beaucoup d'autres traversent la même chose.",
+    "Pensez à tout l'argent que vous économisez !",
+    "Votre santé s'améliore chaque minute où vous restez sans vapoter.",
+    "Vous en êtes capable ! Un jour à la fois."
 ];
 
 // Game state
@@ -137,11 +137,11 @@ let gameScore = 0;
 
 // Game words for word scramble
 const gameWords = [
-    { word: 'HEALTHY', hint: 'Good for your body' },
-    { word: 'MINDFUL', hint: 'Being present in the moment' },
-    { word: 'STRONG', hint: 'Having power and resilience' },
-    { word: 'FREEDOM', hint: 'Being free from addiction' },
-    { word: 'ENERGY', hint: 'Vitality and power' }
+    { word: 'SANTE', hint: 'Bon pour votre corps' },
+    { word: 'MINDFUL', hint: 'Être présent dans le moment' },
+    { word: 'FORT', hint: 'Avoir du pouvoir et de la résilience' },
+    { word: 'LIBERTE', hint: 'Être libre de l\'addiction' },
+    { word: 'ENERGIE', hint: 'Vitalité et puissance' }
 ];
 
 // Memory game cards
@@ -282,20 +282,20 @@ function completeChallenge() {
     userData.points += 100;
     saveUserData();
     updateUI();
-    alert('Great job! You earned 100 points!');
+    alert('Bravo ! Vous avez gagné 100 points !');
     setDailyChallenge();
 }
 
 // Enhanced mood logging with notes and time
 function logMood(mood) {
-    const note = prompt('Add a note about your mood (optional):');
+    const note = prompt('Ajoutez une note sur votre humeur (optionnel) :');
     const now = new Date();
     const moodEntry = {
         mood: mood,
         timestamp: now.toISOString(),
         note: note || '',
-        timeOfDay: now.getHours() < 12 ? 'morning' : 
-                   now.getHours() < 17 ? 'afternoon' : 'evening'
+        timeOfDay: now.getHours() < 12 ? 'matin' : 
+                   now.getHours() < 17 ? 'après-midi' : 'soir'
     };
     
     // Add to mood history
@@ -466,12 +466,15 @@ function showNoteModal(note, date, mood, timeOfDay) {
         modal.innerHTML = `
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <h3>Mood Note for ${date}</h3>
+                <h3>Note d'Humeur pour ${date}</h3>
                 <div class="mood-indicator" style="background-color: ${moodColors[mood]}">
-                    Mood: ${mood.charAt(0).toUpperCase() + mood.slice(1)}
+                    Humeur: ${mood === 'great' ? 'Excellent' :
+                             mood === 'good' ? 'Bien' :
+                             mood === 'okay' ? 'Correct' :
+                             mood === 'bad' ? 'Mauvais' : 'Terrible'}
                 </div>
                 <div class="time-indicator">
-                    Time of Day: ${timeOfDay.charAt(0).toUpperCase() + timeOfDay.slice(1)}
+                    Moment de la Journée: ${timeOfDay.charAt(0).toUpperCase() + timeOfDay.slice(1)}
                 </div>
                 <p id="noteContent"></p>
             </div>
@@ -531,8 +534,8 @@ function sendMessage() {
 
 // Add an emergency contact
 function addContact() {
-    const name = prompt('Enter contact name:');
-    const phone = prompt('Enter contact phone number:');
+    const name = prompt('Entrez le nom du contact :');
+    const phone = prompt('Entrez le numéro de téléphone :');
     
     if (name && phone) {
         userData.contacts.push({ name, phone });
@@ -611,7 +614,7 @@ function updateStreakManually(success) {
     const today = new Date().toDateString();
     
     if (userData.lastCheckIn === today) {
-        alert('You\'ve already updated your streak today. Come back tomorrow!');
+        alert('Vous avez déjà mis à jour votre série aujourd\'hui. Revenez demain !');
         return;
     }
     
@@ -623,22 +626,22 @@ function updateStreakManually(success) {
         // Different encouraging messages based on streak length
         let message = '';
         if (userData.streak === 1) {
-            message = 'Great start! Day 1 is the beginning of your journey! 🌟';
+            message = 'Excellent début ! Le jour 1 est le début de votre voyage ! 🌟';
         } else if (userData.streak === 7) {
-            message = 'Amazing! You\'ve completed your first week! 🎉';
+            message = 'Incroyable ! Vous avez complété votre première semaine ! 🎉';
         } else if (userData.streak === 30) {
-            message = 'Incredible! You\'ve reached a full month! 🎊';
+            message = 'Fantastique ! Vous avez atteint un mois complet ! 🎊';
         } else if (userData.streak % 7 === 0) {
-            message = `Congratulations! You've reached ${userData.streak} days! Keep going! 🎯`;
+            message = `Félicitations ! Vous avez atteint ${userData.streak} jours ! Continuez ! 🎯`;
         } else {
-            message = `Keep up the great work! You're on day ${userData.streak}! 💪`;
+            message = `Continuez le bon travail ! Vous êtes au jour ${userData.streak} ! 💪`;
         }
         
         alert(message);
     } else {
         userData.streak = 0;
         userData.lastCheckIn = today;
-        alert("It's okay to start over. Every day is a new opportunity to begin again. You've got this! 🌱");
+        alert("C'est normal de recommencer. Chaque jour est une nouvelle opportunité de recommencer. Vous en êtes capable ! 🌱");
     }
     
     saveUserData();
@@ -662,8 +665,8 @@ function initStreakButtons() {
     const streakControls = document.createElement('div');
     streakControls.className = 'streak-controls';
     streakControls.innerHTML = `
-        <button onclick="updateStreakManually(true)" class="success-button">Add Day to Streak</button>
-        <button onclick="updateStreakManually(false)" class="reset-button">Reset Streak</button>
+        <button onclick="updateStreakManually(true)" class="success-button">Ajouter un Jour à la Série</button>
+        <button onclick="updateStreakManually(false)" class="reset-button">Réinitialiser la Série</button>
     `;
     
     // Insert after the stats div
@@ -684,8 +687,8 @@ function startMemoryGame() {
     
     const gameContent = document.getElementById('gameContent');
     gameContent.innerHTML = `
-        <h3>Memory Match</h3>
-        <p>Match pairs of cards to earn points!</p>
+        <h3>Jeu de Mémoire</h3>
+        <p>Associez les paires de cartes pour gagner des points !</p>
         <div class="memory-grid"></div>
     `;
     
@@ -764,8 +767,8 @@ function startBreathGame() {
     const gameContent = document.getElementById('gameContent');
     gameContent.innerHTML = `
         <div class="breath-game">
-            <h3>Breath Bubble</h3>
-            <p>Pop bubbles while practicing your breathing!</p>
+            <h3>Bulles de Respiration</h3>
+            <p>Éclatez des bulles tout en pratiquant votre respiration !</p>
             <div id="bubbleContainer" style="height: 400px; position: relative;"></div>
         </div>
     `;
@@ -783,14 +786,14 @@ function startWordGame() {
     updateGameScore();
     showGameArea();
     
-    const randomWord = gameWords[Math.random() * gameWords.length];
+    const randomWord = gameWords[Math.floor(Math.random() * gameWords.length)];
     const scrambledWord = randomWord.word.split('').sort(() => Math.random() - 0.5).join('');
     
     const gameContent = document.getElementById('gameContent');
     gameContent.innerHTML = `
         <div class="word-game">
-            <h3>Word Scramble</h3>
-            <p>Hint: ${randomWord.hint}</p>
+            <h3>Mots Mêlés</h3>
+            <p>Indice : ${randomWord.hint}</p>
             <div class="word-display">${scrambledWord}</div>
             <div class="letter-buttons"></div>
         </div>
@@ -836,7 +839,7 @@ function checkMatch() {
         
         if (matchedPairs === memoryCards.length / 2) {
             setTimeout(() => {
-                alert('Congratulations! You won!');
+                alert('Félicitations ! Vous avez gagné !');
                 closeGame();
             }, 500);
         }
@@ -875,12 +878,12 @@ function selectLetter(button, letter, word) {
             gameScore += 20;
             updateGameScore();
             setTimeout(() => {
-                alert('Congratulations! You solved the word!');
+                alert('Félicitations ! Vous avez trouvé le mot !');
                 closeGame();
             }, 500);
         } else {
             setTimeout(() => {
-                alert('Try again!');
+                alert('Essayez encore !');
                 closeGame();
             }, 500);
         }
@@ -901,7 +904,7 @@ function closeGame() {
 }
 
 function updateGameScore() {
-    document.getElementById('gameScore').textContent = `Score: ${gameScore}`;
+    document.getElementById('gameScore').textContent = `Score : ${gameScore}`;
 }
 
 // Initialize the app when the page loads

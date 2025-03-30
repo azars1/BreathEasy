@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BreathEasy - Quit Vaping Together</title>
+    <title>BreathEasy - Votre Compagnon de Sevrage</title>
     <!-- Force new deployment -->
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -11,16 +11,16 @@
     <div class="container">
         <header>
             <h1>BreathEasy</h1>
-            <p class="subtitle">Your journey to a vape-free life</p>
+            <p class="subtitle">Votre compagnon pour arrêter de vapoter</p>
         </header>
 
         <!-- Progress Section -->
         <div class="section progress-section">
-            <h2>Your Progress</h2>
+            <h2>Votre Progression</h2>
             <div class="stats">
                 <div class="stat-box">
                     <span class="stat-number" id="streakCounter">0</span>
-                    <span class="stat-label">Day Streak</span>
+                    <span class="stat-label">Jours de Progression</span>
                 </div>
                 <div class="stat-box">
                     <span class="stat-number" id="pointsCounter">0</span>
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="badges">
-                <h3>Your Badges</h3>
+                <h3>Vos Badges</h3>
                 <div id="badgeContainer" class="badge-container">
                     <!-- Badges will be added here by JavaScript -->
                 </div>
@@ -37,60 +37,60 @@
 
         <!-- Daily Challenge Section -->
         <div class="section challenge-section">
-            <h2>Today's Challenge</h2>
+            <h2>Défi du Jour</h2>
             <div id="dailyChallenge" class="challenge-box">
-                <p>Loading challenge...</p>
+                <p>Chargement du défi...</p>
             </div>
             <div id="breathingExercise" class="breathing-exercise" style="display: none;">
                 <div class="breathing-circle"></div>
-                <div class="breathing-text">Ready to start?</div>
-                <button onclick="startBreathingExercise()" class="primary-button">Start Breathing Exercise</button>
+                <div class="breathing-text">Prêt à commencer ?</div>
+                <button onclick="startBreathingExercise()" class="primary-button">Démarrer l'Exercice</button>
             </div>
-            <button onclick="completeChallenge()" class="primary-button">Complete Challenge</button>
+            <button onclick="completeChallenge()" class="primary-button">Compléter le Défi</button>
         </div>
 
         <!-- Mood & Cravings Tracker -->
         <div class="section tracker-section">
-            <h2>How are you feeling?</h2>
+            <h2>Suivi de l'Humeur</h2>
             <div class="mood-selector">
-                <button class="mood-button" data-mood="great" onclick="logMood('great')">😊 Great</button>
-                <button class="mood-button" data-mood="good" onclick="logMood('good')">🙂 Good</button>
-                <button class="mood-button" data-mood="okay" onclick="logMood('okay')">😐 Okay</button>
-                <button class="mood-button" data-mood="bad" onclick="logMood('bad')">😕 Bad</button>
+                <button class="mood-button" data-mood="great" onclick="logMood('great')">😊 Excellent</button>
+                <button class="mood-button" data-mood="good" onclick="logMood('good')">🙂 Bien</button>
+                <button class="mood-button" data-mood="okay" onclick="logMood('okay')">😐 Correct</button>
+                <button class="mood-button" data-mood="bad" onclick="logMood('bad')">😕 Mauvais</button>
                 <button class="mood-button" data-mood="terrible" onclick="logMood('terrible')">😫 Terrible</button>
             </div>
             <div class="mood-visualization">
-                <h3>Your Mood Journey</h3>
+                <h3>Votre Voyage d'Humeur</h3>
                 <canvas id="moodCanvas"></canvas>
                 <div class="mood-legend">
-                    <div class="legend-item"><span class="legend-color great"></span>Great</div>
-                    <div class="legend-item"><span class="legend-color good"></span>Good</div>
-                    <div class="legend-item"><span class="legend-color okay"></span>Okay</div>
-                    <div class="legend-item"><span class="legend-color bad"></span>Bad</div>
+                    <div class="legend-item"><span class="legend-color great"></span>Excellent</div>
+                    <div class="legend-item"><span class="legend-color good"></span>Bien</div>
+                    <div class="legend-item"><span class="legend-color okay"></span>Correct</div>
+                    <div class="legend-item"><span class="legend-color bad"></span>Mauvais</div>
                     <div class="legend-item"><span class="legend-color terrible"></span>Terrible</div>
                 </div>
             </div>
             <div class="cravings-section">
-                <h3>Feeling the urge to vape?</h3>
-                <button onclick="showEmergencyHelp()" class="emergency-button">Get Help Now</button>
+                <h3>Sentir l'envie de vapoter ?</h3>
+                <button onclick="showEmergencyHelp()" class="emergency-button">Besoin d'Aide ?</button>
             </div>
         </div>
 
         <!-- Mini Games Section -->
         <div class="section games-section">
-            <h2>Fun Distractions</h2>
+            <h2>Mini-Jeux</h2>
             <div class="games-container">
                 <div class="game-card" onclick="startMemoryGame()">
-                    <h3>Memory Match</h3>
-                    <p>Match pairs of cards to earn points!</p>
+                    <h3>Jeu de Mémoire</h3>
+                    <p>Associez les paires de cartes pour gagner des points</p>
                 </div>
                 <div class="game-card" onclick="startBreathGame()">
-                    <h3>Breath Bubble</h3>
-                    <p>Pop bubbles while practicing breathing!</p>
+                    <h3>Bulles de Respiration</h3>
+                    <p>Pop des bulles tout en pratiquant votre respiration</p>
                 </div>
                 <div class="game-card" onclick="startWordGame()">
-                    <h3>Word Scramble</h3>
-                    <p>Unscramble words related to healthy living!</p>
+                    <h3>Mots Mêlés</h3>
+                    <p>Réorganisez les lettres pour former des mots positifs</p>
                 </div>
             </div>
             <div id="gameArea" class="game-area" style="display: none;">
@@ -104,25 +104,25 @@
 
         <!-- Community Support -->
         <div class="section community-section">
-            <h2>Community Support</h2>
+            <h2>Support Communautaire</h2>
             <div class="chat-container">
                 <div id="chatMessages" class="chat-messages">
                     <!-- Messages will be added here -->
                 </div>
                 <div class="chat-input">
-                    <input type="text" id="messageInput" placeholder="Share your thoughts...">
-                    <button onclick="sendMessage()">Send</button>
+                    <input type="text" id="messageInput" placeholder="Partagez vos pensées...">
+                    <button onclick="sendMessage()" class="primary-button">Envoyer</button>
                 </div>
             </div>
         </div>
 
         <!-- Emergency Contacts -->
         <div class="section contacts-section">
-            <h2>Emergency Contacts</h2>
+            <h2>Contacts d'Urgence</h2>
             <div id="contactsList" class="contacts-list">
                 <!-- Contacts will be added here -->
             </div>
-            <button onclick="addContact()" class="secondary-button">Add Contact</button>
+            <button onclick="addContact()" class="secondary-button">Ajouter un Contact</button>
         </div>
     </div>
 
