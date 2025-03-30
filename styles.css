@@ -631,4 +631,91 @@ h1 {
 .letter-button.used {
     background-color: #ccc;
     cursor: not-allowed;
+}
+
+/* Color Match Game Styles */
+.color-game {
+    text-align: center;
+}
+
+.color-sequence {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    min-height: 60px;
+}
+
+.color-block {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    transition: opacity 0.5s ease;
+}
+
+.color-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.color-button {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.color-button:hover {
+    transform: scale(1.1);
+}
+
+/* Pattern Memory Game Styles */
+.pattern-game {
+    text-align: center;
+}
+
+.pattern-display {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    min-height: 60px;
+}
+
+.pattern-block {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    transition: opacity 0.5s ease;
+}
+
+.pattern-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.pattern-button {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.pattern-button:hover {
+    transform: scale(1.1);
 } 

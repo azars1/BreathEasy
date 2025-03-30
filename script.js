@@ -150,6 +150,190 @@ const memoryCards = [
     '🎯', '🎯', '💧', '💧', '🌈', '🌈', '🌞', '🌞'
 ];
 
+// Color Match Game
+const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD', '#D4A5A5', '#9B59B6', '#3498DB'];
+
+function startColorMatchGame() {
+    currentGame = 'color';
+    gameScore = 0;
+    updateGameScore();
+    showGameArea();
+    
+    const gameContent = document.getElementById('gameContent');
+    gameContent.innerHTML = `
+        <div class="color-game">
+            <h3>Match de Couleurs</h3>
+            <p>Mémorisez la séquence de couleurs et reproduisez-la !</p>
+            <div class="color-sequence"></div>
+            <div class="color-buttons"></div>
+            <button onclick="startColorSequence()" class="primary-button">Démarrer la Séquence</button>
+        </div>
+    `;
+    
+    const colorButtons = gameContent.querySelector('.color-buttons');
+    colors.forEach(color => {
+        const button = document.createElement('button');
+        button.className = 'color-button';
+        button.style.backgroundColor = color;
+        button.dataset.color = color;
+        button.onclick = () => checkColorMatch(button);
+        colorButtons.appendChild(button);
+    });
+}
+
+let colorSequence = [];
+let playerSequence = [];
+let isPlaying = false;
+
+function startColorSequence() {
+    if (isPlaying) return;
+    
+    isPlaying = true;
+    playerSequence = [];
+    colorSequence.push(colors[Math.floor(Math.random() * colors.length)]);
+    
+    const sequenceDisplay = document.querySelector('.color-sequence');
+    sequenceDisplay.innerHTML = '';
+    
+    colorSequence.forEach((color, index) => {
+        const colorBlock = document.createElement('div');
+        colorBlock.className = 'color-block';
+        colorBlock.style.backgroundColor = color;
+        sequenceDisplay.appendChild(colorBlock);
+        
+        setTimeout(() => {
+            colorBlock.style.opacity = '0.5';
+            setTimeout(() => {
+                colorBlock.style.opacity = '1';
+            }, 500);
+        }, index * 1000);
+    });
+    
+    setTimeout(() => {
+        isPlaying = false;
+        sequenceDisplay.innerHTML = '';
+    }, colorSequence.length * 1000 + 500);
+}
+
+function checkColorMatch(button) {
+    if (isPlaying) return;
+    
+    const color = button.dataset.color;
+    playerSequence.push(color);
+    
+    const index = playerSequence.length - 1;
+    if (color !== colorSequence[index]) {
+        setTimeout(() => {
+            alert('Séquence incorrecte ! Essayez encore !');
+            closeGame();
+        }, 500);
+        return;
+    }
+    
+    if (playerSequence.length === colorSequence.length) {
+        gameScore += colorSequence.length * 10;
+        updateGameScore();
+        setTimeout(() => {
+            alert('Bravo ! Vous avez réussi !');
+            startColorSequence();
+        }, 500);
+    }
+}
+
+// Pattern Memory Game
+const patterns = [
+    '⬆️', '⬇️', '⬅️', '➡️',
+    '↖️', '↗️', '↙️', '↘️',
+    '⏹️', '⏺️', '⏺️', '⏹️'
+];
+
+function startPatternGame() {
+    currentGame = 'pattern';
+    gameScore = 0;
+    updateGameScore();
+    showGameArea();
+    
+    const gameContent = document.getElementById('gameContent');
+    gameContent.innerHTML = `
+        <div class="pattern-game">
+            <h3>Mémoire des Motifs</h3>
+            <p>Mémorisez et reproduisez le motif qui apparaît !</p>
+            <div class="pattern-display"></div>
+            <div class="pattern-buttons"></div>
+            <button onclick="startPatternSequence()" class="primary-button">Démarrer le Motif</button>
+        </div>
+    `;
+    
+    const patternButtons = gameContent.querySelector('.pattern-buttons');
+    patterns.forEach(pattern => {
+        const button = document.createElement('button');
+        button.className = 'pattern-button';
+        button.textContent = pattern;
+        button.dataset.pattern = pattern;
+        button.onclick = () => checkPatternMatch(button);
+        patternButtons.appendChild(button);
+    });
+}
+
+let patternSequence = [];
+let playerPatternSequence = [];
+let isPatternPlaying = false;
+
+function startPatternSequence() {
+    if (isPatternPlaying) return;
+    
+    isPatternPlaying = true;
+    playerPatternSequence = [];
+    patternSequence.push(patterns[Math.floor(Math.random() * patterns.length)]);
+    
+    const patternDisplay = document.querySelector('.pattern-display');
+    patternDisplay.innerHTML = '';
+    
+    patternSequence.forEach((pattern, index) => {
+        const patternBlock = document.createElement('div');
+        patternBlock.className = 'pattern-block';
+        patternBlock.textContent = pattern;
+        patternDisplay.appendChild(patternBlock);
+        
+        setTimeout(() => {
+            patternBlock.style.opacity = '0.5';
+            setTimeout(() => {
+                patternBlock.style.opacity = '1';
+            }, 500);
+        }, index * 1000);
+    });
+    
+    setTimeout(() => {
+        isPatternPlaying = false;
+        patternDisplay.innerHTML = '';
+    }, patternSequence.length * 1000 + 500);
+}
+
+function checkPatternMatch(button) {
+    if (isPatternPlaying) return;
+    
+    const pattern = button.dataset.pattern;
+    playerPatternSequence.push(pattern);
+    
+    const index = playerPatternSequence.length - 1;
+    if (pattern !== patternSequence[index]) {
+        setTimeout(() => {
+            alert('Motif incorrect ! Essayez encore !');
+            closeGame();
+        }, 500);
+        return;
+    }
+    
+    if (playerPatternSequence.length === patternSequence.length) {
+        gameScore += patternSequence.length * 10;
+        updateGameScore();
+        setTimeout(() => {
+            alert('Bravo ! Vous avez réussi !');
+            startPatternSequence();
+        }, 500);
+    }
+}
+
 // Initialize the app
 function initApp() {
     loadUserData();
