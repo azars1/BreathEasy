@@ -155,9 +155,9 @@ function initApp() {
     loadUserData();
     updateUI();
     setDailyChallenge();
-    checkStreak();
     initNoteViewer();
-    initStreakButtons();
+    initChat();
+    updateContacts();
 }
 
 // Load user data from localStorage
@@ -647,35 +647,6 @@ function updateStreakManually(success) {
     saveUserData();
     updateUI();
     checkBadgeAchievements();
-}
-
-// Initialize streak management buttons
-function initStreakButtons() {
-    const streakSection = document.querySelector('.progress-section');
-    if (!streakSection) {
-        console.error('Progress section not found');
-        return;
-    }
-    
-    // Check if buttons already exist
-    if (streakSection.querySelector('.streak-controls')) {
-        return;
-    }
-    
-    const streakControls = document.createElement('div');
-    streakControls.className = 'streak-controls';
-    streakControls.innerHTML = `
-        <button onclick="updateStreakManually(true)" class="success-button">Ajouter un Jour à la Série</button>
-        <button onclick="updateStreakManually(false)" class="reset-button">Réinitialiser la Série</button>
-    `;
-    
-    // Insert after the stats div
-    const statsDiv = streakSection.querySelector('.stats');
-    if (statsDiv) {
-        statsDiv.insertAdjacentElement('afterend', streakControls);
-    } else {
-        streakSection.appendChild(streakControls);
-    }
 }
 
 // Start memory game
