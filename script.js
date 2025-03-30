@@ -138,6 +138,7 @@ function initApp() {
     setDailyChallenge();
     checkStreak();
     initNoteViewer();
+    initStreakButtons();
 }
 
 // Load user data from localStorage
@@ -168,6 +169,11 @@ function setDailyChallenge() {
     const dailyChallengeDiv = document.getElementById('dailyChallenge');
     const breathingExerciseDiv = document.getElementById('breathingExercise');
     
+    if (!dailyChallengeDiv || !breathingExerciseDiv) {
+        console.error('Required elements not found');
+        return;
+    }
+    
     // Update challenge text
     dailyChallengeDiv.innerHTML = `
         <p>${challenge.text}</p>
@@ -183,8 +189,10 @@ function setDailyChallenge() {
     if (challenge.type === 'breathing') {
         const circle = document.querySelector('.breathing-circle');
         const text = document.querySelector('.breathing-text');
-        circle.classList.remove('inhale', 'exhale', 'hold');
-        text.textContent = 'Ready to start?';
+        if (circle && text) {
+            circle.classList.remove('inhale', 'exhale', 'hold');
+            text.textContent = 'Ready to start?';
+        }
     }
 }
 
@@ -572,5 +580,60 @@ function checkBadgeAchievements() {
     updateUI();
 }
 
+// Manual streak management
+function updateStreakManually(success) {
+    const today = new Date().toDateString();
+    
+    if (userData.lastCheckIn === today) {
+        alert('You\'ve already updated your streak today. Come back tomorrow!');
+        return;
+    }
+    
+    if (success) {
+        userData.streak++;
+        userData.points += 50; // Daily streak bonus
+        userData.lastCheckIn = today;
+        
+        // Different encouraging messages based on streak length
+        let message = '';
+        if (userData.streak === 1) {
+            message = 'Great start! Day 1 is the beginning of your journey! 🌟';
+        } else if (userData.streak === 7) {
+            message = 'Amazing! You\'ve completed your first week! 🎉';
+        } else if (userData.streak === 30) {
+            message = 'Incredible! You\'ve reached a full month! 🎊';
+        } else if (userData.streak % 7 === 0) {
+            message = `Congratulations! You've reached ${userData.streak} days! Keep going! 🎯`;
+        } else {
+            message = `Keep up the great work! You're on day ${userData.streak}! 💪`;
+        }
+        
+        alert(message);
+    } else {
+        userData.streak = 0;
+        userData.lastCheckIn = today;
+        alert('It\'s okay to start over. Every day is a new opportunity to begin again. You've got this! 🌱');
+    }
+    
+    saveUserData();
+    updateUI();
+    checkBadgeAchievements();
+}
+
+// Initialize streak management buttons
+function initStreakButtons() {
+    const streakSection = document.querySelector('.progress-section');
+    if (!streakSection) return;
+    
+    const streakControls = document.createElement('div');
+    streakControls.className = 'streak-controls';
+    streakControls.innerHTML = `
+        <button onclick="updateStreakManually(true)" class="success-button">Add Day to Streak</button>
+        <button onclick="updateStreakManually(false)" class="reset-button">Reset Streak</button>
+    `;
+    
+    streakSection.appendChild(streakControls);
+}
+
 // Initialize the app when the page loads
-window.onload = initApp; 
+document.addEventListener('DOMContentLoaded', initApp); 
