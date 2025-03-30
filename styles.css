@@ -1,0 +1,438 @@
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --accent-color: #FFC107;
+    --background-color: #f0f0f0;
+    --text-color: #333;
+    --section-bg: #ffffff;
+    --border-color: #ddd;
+    --mood-great: #4CAF50;
+    --mood-good: #8BC34A;
+    --mood-okay: #FFC107;
+    --mood-bad: #FF9800;
+    --mood-terrible: #F44336;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--section-bg);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 8px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.subtitle {
+    margin: 10px 0 0;
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+.section {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: white;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    min-width: 120px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.challenge-box {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.mood-selector {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.mood-button {
+    flex: 1;
+    min-width: 100px;
+    padding: 15px;
+    font-size: 1.2em;
+    background-color: #f8f9fa;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.mood-button:hover {
+    transform: scale(1.05);
+}
+
+.emergency-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.emergency-button:hover {
+    background-color: #c82333;
+}
+
+.chat-container {
+    margin-top: 15px;
+}
+
+.chat-messages {
+    height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.primary-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.secondary-button {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.contacts-list {
+    margin-top: 15px;
+}
+
+/* Breathing Exercise Styles */
+.breathing-exercise {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.breathing-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    margin: 20px auto;
+    transition: all 4s ease-in-out;
+}
+
+.breathing-circle.inhale {
+    transform: scale(1.5);
+    background-color: #45a049;
+}
+
+.breathing-circle.hold {
+    transform: scale(1.3);
+    background-color: #3d8b40;
+}
+
+.breathing-circle.exhale {
+    transform: scale(1);
+    background-color: var(--primary-color);
+}
+
+.breathing-text {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: var(--text-color);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.breathing-pattern-info {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Enhanced Mood Visualization Styles */
+.mood-visualization {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#moodCanvas {
+    width: 100%;
+    height: 200px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 10px 0;
+    position: relative;
+    cursor: pointer;
+}
+
+.mood-note-tooltip {
+    position: absolute;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 0.8em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    pointer-events: none;
+    z-index: 1000;
+    max-width: 200px;
+}
+
+.mood-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.legend-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.legend-color.great { background-color: var(--mood-great); }
+.legend-color.good { background-color: var(--mood-good); }
+.legend-color.okay { background-color: var(--mood-okay); }
+.legend-color.bad { background-color: var(--mood-bad); }
+.legend-color.terrible { background-color: var(--mood-terrible); }
+
+/* Mood Button Colors with Hover Effects */
+.mood-button[data-mood="great"] { 
+    background-color: var(--mood-great); 
+    color: white;
+    transition: all 0.3s ease;
+}
+.mood-button[data-mood="good"] { 
+    background-color: var(--mood-good); 
+    color: white;
+    transition: all 0.3s ease;
+}
+.mood-button[data-mood="okay"] { 
+    background-color: var(--mood-okay); 
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+.mood-button[data-mood="bad"] { 
+    background-color: var(--mood-bad); 
+    color: white;
+    transition: all 0.3s ease;
+}
+.mood-button[data-mood="terrible"] { 
+    background-color: var(--mood-terrible); 
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.mood-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .mood-selector {
+        flex-direction: column;
+    }
+    
+    .mood-button {
+        width: 100%;
+    }
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+    background-color: var(--section-bg);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    animation: slideIn 0.3s ease-in-out;
+}
+
+.mood-indicator {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    margin: 10px 0;
+    text-transform: capitalize;
+}
+
+.time-indicator {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 15px;
+    background-color: #e9ecef;
+    color: #495057;
+    font-size: 0.9em;
+    margin: 10px 0;
+    text-transform: capitalize;
+}
+
+#noteContent {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    line-height: 1.6;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: var(--text-color);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+} 

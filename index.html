@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BreathEasy - Quit Vaping Together</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>BreathEasy</h1>
+            <p class="subtitle">Your journey to a vape-free life</p>
+        </header>
+
+        <!-- Progress Section -->
+        <div class="section progress-section">
+            <h2>Your Progress</h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <span class="stat-number" id="streakCounter">0</span>
+                    <span class="stat-label">Day Streak</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="pointsCounter">0</span>
+                    <span class="stat-label">Points</span>
+                </div>
+            </div>
+            <div class="badges">
+                <h3>Your Badges</h3>
+                <div id="badgeContainer" class="badge-container">
+                    <!-- Badges will be added here by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Challenge Section -->
+        <div class="section challenge-section">
+            <h2>Today's Challenge</h2>
+            <div id="dailyChallenge" class="challenge-box">
+                <p>Loading challenge...</p>
+            </div>
+            <div id="breathingExercise" class="breathing-exercise" style="display: none;">
+                <div class="breathing-circle"></div>
+                <div class="breathing-text">Ready to start?</div>
+                <button onclick="startBreathingExercise()" class="primary-button">Start Breathing Exercise</button>
+            </div>
+            <button onclick="completeChallenge()" class="primary-button">Complete Challenge</button>
+        </div>
+
+        <!-- Mood & Cravings Tracker -->
+        <div class="section tracker-section">
+            <h2>How are you feeling?</h2>
+            <div class="mood-selector">
+                <button class="mood-button" data-mood="great" onclick="logMood('great')">😊 Great</button>
+                <button class="mood-button" data-mood="good" onclick="logMood('good')">🙂 Good</button>
+                <button class="mood-button" data-mood="okay" onclick="logMood('okay')">😐 Okay</button>
+                <button class="mood-button" data-mood="bad" onclick="logMood('bad')">😕 Bad</button>
+                <button class="mood-button" data-mood="terrible" onclick="logMood('terrible')">😫 Terrible</button>
+            </div>
+            <div class="mood-visualization">
+                <h3>Your Mood Journey</h3>
+                <canvas id="moodCanvas"></canvas>
+                <div class="mood-legend">
+                    <div class="legend-item"><span class="legend-color great"></span>Great</div>
+                    <div class="legend-item"><span class="legend-color good"></span>Good</div>
+                    <div class="legend-item"><span class="legend-color okay"></span>Okay</div>
+                    <div class="legend-item"><span class="legend-color bad"></span>Bad</div>
+                    <div class="legend-item"><span class="legend-color terrible"></span>Terrible</div>
+                </div>
+            </div>
+            <div class="cravings-section">
+                <h3>Feeling the urge to vape?</h3>
+                <button onclick="showEmergencyHelp()" class="emergency-button">Get Help Now</button>
+            </div>
+        </div>
+
+        <!-- Community Support -->
+        <div class="section community-section">
+            <h2>Community Support</h2>
+            <div class="chat-container">
+                <div id="chatMessages" class="chat-messages">
+                    <!-- Messages will be added here -->
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Share your thoughts...">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Contacts -->
+        <div class="section contacts-section">
+            <h2>Emergency Contacts</h2>
+            <div id="contactsList" class="contacts-list">
+                <!-- Contacts will be added here -->
+            </div>
+            <button onclick="addContact()" class="secondary-button">Add Contact</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
