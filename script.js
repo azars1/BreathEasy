@@ -151,11 +151,16 @@ const memoryCards = [
 ];
 
 // Color Match Game
-const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD', '#D4A5A5', '#9B59B6', '#3498DB'];
+let colorSequence = [];
+let userSequence = [];
+let isPlaying = false;
 
-function startColorMatchGame() {
+function startColorGame() {
     currentGame = 'color';
     gameScore = 0;
+    colorSequence = [];
+    userSequence = [];
+    isPlaying = false;
     updateGameScore();
     showGameArea();
     
@@ -163,34 +168,47 @@ function startColorMatchGame() {
     gameContent.innerHTML = `
         <div class="color-game">
             <h3>Match de Couleurs</h3>
-            <p>Mémorisez la séquence de couleurs et reproduisez-la !</p>
+            <p>Mémorisez et répétez la séquence de couleurs !</p>
             <div class="color-sequence"></div>
-            <div class="color-buttons"></div>
-            <button onclick="startColorSequence()" class="primary-button">Démarrer la Séquence</button>
+            <div class="color-buttons">
+                <button class="color-button" style="background-color: #ff0000;" data-color="red"></button>
+                <button class="color-button" style="background-color: #00ff00;" data-color="green"></button>
+                <button class="color-button" style="background-color: #0000ff;" data-color="blue"></button>
+                <button class="color-button" style="background-color: #ffff00;" data-color="yellow"></button>
+            </div>
+            <button class="start-button">Commencer</button>
         </div>
     `;
     
-    const colorButtons = gameContent.querySelector('.color-buttons');
-    colors.forEach(color => {
-        const button = document.createElement('button');
-        button.className = 'color-button';
-        button.style.backgroundColor = color;
-        button.dataset.color = color;
-        button.onclick = () => checkColorMatch(button);
-        colorButtons.appendChild(button);
+    const startButton = gameContent.querySelector('.start-button');
+    startButton.onclick = () => {
+        if (!isPlaying) {
+            isPlaying = true;
+            startButton.disabled = true;
+            addToSequence();
+        }
+    };
+    
+    const colorButtons = gameContent.querySelectorAll('.color-button');
+    colorButtons.forEach(button => {
+        button.onclick = () => {
+            if (!isPlaying) return;
+            const color = button.dataset.color;
+            userSequence.push(color);
+            button.style.opacity = '0.5';
+            setTimeout(() => {
+                button.style.opacity = '1';
+            }, 200);
+            
+            checkSequence();
+        };
     });
 }
 
-let colorSequence = [];
-let playerSequence = [];
-let isPlaying = false;
-
-function startColorSequence() {
-    if (isPlaying) return;
-    
-    isPlaying = true;
-    playerSequence = [];
-    colorSequence.push(colors[Math.floor(Math.random() * colors.length)]);
+function addToSequence() {
+    const colors = ['red', 'green', 'blue', 'yellow'];
+    const newColor = colors[Math.floor(Math.random() * colors.length)];
+    colorSequence.push(newColor);
     
     const sequenceDisplay = document.querySelector('.color-sequence');
     sequenceDisplay.innerHTML = '';
@@ -210,41 +228,68 @@ function startColorSequence() {
     });
     
     setTimeout(() => {
-        isPlaying = false;
-        sequenceDisplay.innerHTML = '';
+        isPlaying = true;
     }, colorSequence.length * 1000 + 500);
 }
 
-function checkColorMatch(button) {
-    if (isPlaying) return;
+function checkSequence() {
+    const lastIndex = userSequence.length - 1;
+    const expectedColor = colorSequence[lastIndex];
+    const actualColor = userSequence[lastIndex];
     
-    const color = button.dataset.color;
-    playerSequence.push(color);
-    
-    const index = playerSequence.length - 1;
-    if (color !== colorSequence[index]) {
-        setTimeout(() => {
-            alert('Séquence incorrecte ! Essayez encore !');
-            closeGame();
-        }, 500);
+    if (actualColor !== expectedColor) {
+        isPlaying = false;
+        document.querySelector('.start-button').disabled = false;
+        alert('Séquence incorrecte ! Essayez encore !');
         return;
     }
     
-    if (playerSequence.length === colorSequence.length) {
-        gameScore += colorSequence.length * 10;
+    if (userSequence.length === colorSequence.length) {
+        gameScore += 10;
         updateGameScore();
-        // Only show success message when game is complete (e.g., after 5 successful rounds)
-        if (colorSequence.length >= 5) {
+        userSequence = [];
+        setTimeout(addToSequence, 1000);
+    }
+}
+
+// Memory Game improvements
+function flipCard(card) {
+    if (flippedCards.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+    
+    card.classList.add('flipped');
+    card.textContent = card.dataset.card;
+    flippedCards.push(card);
+    
+    if (flippedCards.length === 2) {
+        setTimeout(checkMatch, 1000);
+    }
+}
+
+function checkMatch() {
+    const [card1, card2] = flippedCards;
+    if (card1.dataset.card === card2.dataset.card) {
+        matchedPairs++;
+        gameScore += 10;
+        updateGameScore();
+        
+        card1.classList.add('matched');
+        card2.classList.add('matched');
+        flippedCards = [];
+        
+        if (matchedPairs === memoryCards.length / 2) {
             setTimeout(() => {
-                alert('Félicitations ! Vous avez complété le jeu !');
+                alert('Félicitations ! Vous avez gagné !');
                 closeGame();
             }, 500);
-        } else {
-            // Continue to next round without message
-            setTimeout(() => {
-                startColorSequence();
-            }, 500);
         }
+    } else {
+        card1.classList.remove('flipped');
+        card2.classList.remove('flipped');
+        card1.textContent = '';
+        card2.textContent = '';
+        setTimeout(() => {
+            flippedCards = [];
+        }, 500);
     }
 }
 
@@ -1208,7 +1253,7 @@ function startGame(gameType) {
                 startWordGame();
                 break;
             case 'color':
-                startColorSequence();
+                startColorGame();
                 break;
             case 'pattern':
                 startPatternSequence();
