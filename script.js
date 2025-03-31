@@ -171,10 +171,14 @@ function startColorGame() {
             <p>Mémorisez et répétez la séquence de couleurs !</p>
             <div class="color-sequence"></div>
             <div class="color-buttons">
-                <button class="color-button" style="background-color: #ff0000;" data-color="red"></button>
-                <button class="color-button" style="background-color: #00ff00;" data-color="green"></button>
-                <button class="color-button" style="background-color: #0000ff;" data-color="blue"></button>
-                <button class="color-button" style="background-color: #ffff00;" data-color="yellow"></button>
+                <button class="color-button" style="background-color: #FF6B6B;" data-color="#FF6B6B"></button>
+                <button class="color-button" style="background-color: #4ECDC4;" data-color="#4ECDC4"></button>
+                <button class="color-button" style="background-color: #45B7D1;" data-color="#45B7D1"></button>
+                <button class="color-button" style="background-color: #96CEB4;" data-color="#96CEB4"></button>
+                <button class="color-button" style="background-color: #FFEEAD;" data-color="#FFEEAD"></button>
+                <button class="color-button" style="background-color: #D4A5A5;" data-color="#D4A5A5"></button>
+                <button class="color-button" style="background-color: #9B59B6;" data-color="#9B59B6"></button>
+                <button class="color-button" style="background-color: #E67E22;" data-color="#E67E22"></button>
             </div>
             <button class="start-button">Commencer</button>
         </div>
@@ -206,13 +210,14 @@ function startColorGame() {
 }
 
 function addToSequence() {
-    const colors = ['red', 'green', 'blue', 'yellow'];
+    const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD', '#D4A5A5', '#9B59B6', '#E67E22'];
     const newColor = colors[Math.floor(Math.random() * colors.length)];
     colorSequence.push(newColor);
     
     const sequenceDisplay = document.querySelector('.color-sequence');
     sequenceDisplay.innerHTML = '';
     
+    // Show the sequence
     colorSequence.forEach((color, index) => {
         const colorBlock = document.createElement('div');
         colorBlock.className = 'color-block';
@@ -227,7 +232,9 @@ function addToSequence() {
         }, index * 1000);
     });
     
+    // Hide the sequence after showing it
     setTimeout(() => {
+        sequenceDisplay.innerHTML = '';
         isPlaying = true;
     }, colorSequence.length * 1000 + 500);
 }
@@ -1075,6 +1082,9 @@ function closeGame() {
     flippedCards = [];
     matchedPairs = 0;
     activeBubbles = 0;
+    colorSequence = [];
+    userSequence = [];
+    isPlaying = false;
     updateGameScore();
 }
 
