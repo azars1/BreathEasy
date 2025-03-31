@@ -137,17 +137,17 @@ let gameScore = 0;
 
 // Game words for word scramble
 const gameWords = [
-    { word: 'SANTE', hint: 'Bon pour votre corps' },
-    { word: 'MINDFUL', hint: 'Être présent dans le moment' },
-    { word: 'FORT', hint: 'Avoir du pouvoir et de la résilience' },
-    { word: 'LIBERTE', hint: 'Être libre de l\'addiction' },
-    { word: 'ENERGIE', hint: 'Vitalité et puissance' }
+    { word: 'CALME', hint: 'Un état de tranquillité' },
+    { word: 'JOIE', hint: 'Un sentiment de bonheur' },
+    { word: 'PAIX', hint: 'Un état de sérénité' },
+    { word: 'AMOUR', hint: 'Un sentiment profond' },
+    { word: 'RÊVE', hint: 'Une pensée pendant le sommeil' }
 ];
 
 // Memory game cards
 const memoryCards = [
-    '🌟', '🌟', '💪', '💪', '🧘', '🧘', '🌱', '🌱',
-    '🎯', '🎯', '💧', '💧', '🌈', '🌈', '🌞', '🌞'
+    '🌟', '🌟', '🌙', '🌙', '☀️', '☀️', '⭐', '⭐',
+    '🌈', '🌈', '🌺', '🌺', '🌼', '🌼', '🌻', '🌻'
 ];
 
 // Color Match Game
@@ -857,6 +857,8 @@ function updateStreakManually(success) {
 function startMemoryGame() {
     currentGame = 'memory';
     gameScore = 0;
+    matchedPairs = 0;
+    flippedCards = [];
     updateGameScore();
     showGameArea();
     
@@ -884,10 +886,28 @@ function startMemoryGame() {
 let activeBubbles = 0;
 const MAX_ACTIVE_BUBBLES = 3;
 
+function startBreathGame() {
+    currentGame = 'breath';
+    gameScore = 0;
+    activeBubbles = 0;
+    updateGameScore();
+    showGameArea();
+    
+    const gameContent = document.getElementById('gameContent');
+    gameContent.innerHTML = `
+        <div class="breath-game">
+            <h3>Bulles de Respiration</h3>
+            <p>Éclatez des bulles tout en pratiquant votre respiration !</p>
+            <div id="bubbleContainer" style="height: 400px; position: relative; overflow: hidden;"></div>
+        </div>
+    `;
+    
+    const container = document.getElementById('bubbleContainer');
+    createBubble(container);
+}
+
 function createBubble(container) {
-    // Check if we've reached the maximum number of active bubbles
     if (activeBubbles >= MAX_ACTIVE_BUBBLES) {
-        // Wait a bit before trying to create another bubble
         setTimeout(() => createBubble(container), 1000);
         return;
     }
@@ -910,7 +930,6 @@ function createBubble(container) {
         updateGameScore();
         bubble.remove();
         activeBubbles--;
-        // Add a delay before creating a new bubble
         setTimeout(() => createBubble(container), 500);
     };
     
@@ -925,116 +944,49 @@ function createBubble(container) {
         setTimeout(() => {
             bubble.remove();
             activeBubbles--;
-            // Add a delay before creating a new bubble
             setTimeout(() => createBubble(container), 500);
         }, duration);
     }, 100);
 }
 
-// Start breath game
-function startBreathGame() {
-    currentGame = 'breath';
-    gameScore = 0;
-    activeBubbles = 0; // Reset active bubbles counter
-    updateGameScore();
-    showGameArea();
-    
-    const gameContent = document.getElementById('gameContent');
-    gameContent.innerHTML = `
-        <div class="breath-game">
-            <h3>Bulles de Respiration</h3>
-            <p>Éclatez des bulles tout en pratiquant votre respiration !</p>
-            <div id="bubbleContainer" style="height: 400px; position: relative;"></div>
-        </div>
-    `;
-    
-    const container = document.getElementById('bubbleContainer');
-    // Start with just one bubble
-    createBubble(container);
-}
+// Word game functions
+let selectedLetters = [];
+let currentWord = null;
 
-// Start word game
 function startWordGame() {
     currentGame = 'word';
     gameScore = 0;
-    selectedLetters = []; // Reset selected letters
+    selectedLetters = [];
     updateGameScore();
     showGameArea();
     
-    const randomWord = gameWords[Math.floor(Math.random() * gameWords.length)];
-    const scrambledWord = randomWord.word.split('').sort(() => Math.random() - 0.5).join('');
+    currentWord = gameWords[Math.floor(Math.random() * gameWords.length)];
+    const scrambledWord = currentWord.word.split('').sort(() => Math.random() - 0.5).join('');
     
     const gameContent = document.getElementById('gameContent');
     gameContent.innerHTML = `
         <div class="word-game">
             <h3>Mots Mêlés</h3>
-            <p>Indice : ${randomWord.hint}</p>
+            <p>Indice : ${currentWord.hint}</p>
             <div class="word-display">${scrambledWord}</div>
             <div class="letter-buttons"></div>
         </div>
     `;
     
     const letterButtons = gameContent.querySelector('.letter-buttons');
-    // Create array of letters and shuffle them
-    const letters = randomWord.word.split('');
+    const letters = currentWord.word.split('');
     const shuffledLetters = [...letters].sort(() => Math.random() - 0.5);
     
-    // Add shuffled letters to buttons
     shuffledLetters.forEach(letter => {
         const button = document.createElement('button');
         button.className = 'letter-button';
         button.textContent = letter;
-        button.onclick = () => selectLetter(button, letter, randomWord.word);
+        button.onclick = () => selectLetter(button, letter);
         letterButtons.appendChild(button);
     });
 }
 
-// Memory game functions
-let flippedCards = [];
-let matchedPairs = 0;
-
-function flipCard(card) {
-    if (flippedCards.length === 2 || card.classList.contains('flipped')) return;
-    
-    card.classList.add('flipped');
-    card.textContent = card.dataset.card;
-    flippedCards.push(card);
-    
-    if (flippedCards.length === 2) {
-        setTimeout(checkMatch, 1000);
-    }
-}
-
-function checkMatch() {
-    const [card1, card2] = flippedCards;
-    if (card1.dataset.card === card2.dataset.card) {
-        matchedPairs++;
-        gameScore += 10;
-        updateGameScore();
-        
-        if (matchedPairs === memoryCards.length / 2) {
-            setTimeout(() => {
-                alert('Félicitations ! Vous avez gagné !');
-                closeGame();
-            }, 500);
-        }
-    } else {
-        card1.classList.remove('flipped');
-        card2.classList.remove('flipped');
-        card1.textContent = '';
-        card2.textContent = '';
-        // Add a small delay before allowing new moves
-        setTimeout(() => {
-            flippedCards = [];
-        }, 500);
-    }
-}
-
-// Word game functions
-let selectedLetters = [];
-
-function selectLetter(button, letter, word) {
-    // If letter is already selected, deselect it
+function selectLetter(button, letter) {
     if (button.classList.contains('used')) {
         button.classList.remove('used');
         selectedLetters = selectedLetters.filter(l => l !== letter);
@@ -1043,29 +995,19 @@ function selectLetter(button, letter, word) {
         return;
     }
     
-    // Add new letter
     selectedLetters.push(letter);
     button.classList.add('used');
     
     const wordDisplay = document.querySelector('.word-display');
     wordDisplay.textContent = selectedLetters.join('');
     
-    if (selectedLetters.length === word.length) {
-        if (selectedLetters.join('') === word) {
+    if (selectedLetters.length === currentWord.word.length) {
+        if (selectedLetters.join('') === currentWord.word) {
             gameScore += 20;
             updateGameScore();
-            // Only show success message when game is complete (e.g., after 3 successful words)
-            if (gameScore >= 60) {
-                setTimeout(() => {
-                    alert('Félicitations ! Vous avez complété le jeu !');
-                    closeGame();
-                }, 500);
-            } else {
-                // Continue to next word without message
-                setTimeout(() => {
-                    startWordGame();
-                }, 500);
-            }
+            setTimeout(() => {
+                startWordGame();
+            }, 1000);
         } else {
             setTimeout(() => {
                 alert('Essayez encore !');
@@ -1084,7 +1026,10 @@ function closeGame() {
     document.getElementById('gameArea').style.display = 'none';
     currentGame = null;
     gameScore = 0;
-    selectedLetters = []; // Reset selected letters when closing game
+    selectedLetters = [];
+    flippedCards = [];
+    matchedPairs = 0;
+    activeBubbles = 0;
     updateGameScore();
 }
 
