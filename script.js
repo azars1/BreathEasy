@@ -414,7 +414,7 @@ function initApp() {
 
 // Load user data from localStorage
 function loadUserData() {
-    const savedData = localStorage.getItem('breathEasyData');
+    const savedData = localStorage.getItem('breatheEasyData');
     if (savedData) {
         userData = JSON.parse(savedData);
     }
@@ -422,7 +422,7 @@ function loadUserData() {
 
 // Save user data to localStorage
 function saveUserData() {
-    localStorage.setItem('breathEasyData', JSON.stringify(userData));
+    localStorage.setItem('breatheEasyData', JSON.stringify(userData));
 }
 
 // Update all UI elements
