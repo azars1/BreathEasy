@@ -194,6 +194,34 @@
             </div>
         </div>
 
+        <!-- Music Section -->
+        <div class="section music-section">
+            <h2>Musique Relaxante</h2>
+            <div class="music-player">
+                <div class="music-controls">
+                    <button class="music-button" onclick="toggleMusic('classical')">
+                        <i class="fas fa-music"></i> Classique
+                    </button>
+                    <button class="music-button" onclick="toggleMusic('meditation')">
+                        <i class="fas fa-spa"></i> Méditation
+                    </button>
+                    <button class="music-button" onclick="toggleMusic('nature')">
+                        <i class="fas fa-tree"></i> Nature
+                    </button>
+                </div>
+                <div class="playback-controls">
+                    <button id="playPauseButton" class="play-pause-button" onclick="togglePlayPause()">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                <div class="volume-control">
+                    <i class="fas fa-volume-up"></i>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="50" aria-label="Volume control">
+                </div>
+                <div id="currentTrack" class="current-track">Aucune musique en cours</div>
+            </div>
+        </div>
+
         <!-- Community Support -->
         <div class="section community-section">
             <h2>Support Communautaire</h2>

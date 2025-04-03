@@ -134,6 +134,7 @@ const supportMessages = [
 // Game state
 let currentGame = null;
 let gameScore = 0;
+let isPlaying = false; // Global play/pause state
 
 // Game words for word scramble
 const gameWords = [
@@ -153,7 +154,6 @@ const memoryCards = [
 // Color Match Game
 let colorSequence = [];
 let userSequence = [];
-let isPlaying = false;
 
 function startColorGame() {
     currentGame = 'color';
@@ -1314,6 +1314,133 @@ window.addEventListener('online', () => {
 
 window.addEventListener('offline', () => {
     showFeedback('Vous êtes hors ligne. Les données seront synchronisées plus tard.', 'error');
+});
+
+// Music Player
+let currentAudio = null;
+const musicTracks = {
+    classical: {
+        title: "Classique Relaxant",
+        url: "music/calm-classical-piano-291012.mp3",
+        description: "Musique classique apaisante pour la relaxation"
+    },
+    meditation: {
+        title: "Méditation Zen",
+        url: "music/free-royalty-zen-calm-deep-meditation-and-sleep-music-191592.mp3",
+        description: "Musique de méditation profonde pour la relaxation et le sommeil"
+    },
+    nature: {
+        title: "Sons de la Nature",
+        url: "music/river-with-faraway-bird-sounds-low-water-flowing-sounds-161873.mp3",
+        description: "Sons apaisants de rivière et d'oiseaux pour la relaxation"
+    }
+};
+
+function togglePlayPause() {
+    const playPauseButton = document.getElementById('playPauseButton');
+    const icon = playPauseButton.querySelector('i');
+    
+    if (currentAudio) {
+        if (isPlaying) {
+            currentAudio.pause();
+            isPlaying = false;
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play');
+            playPauseButton.classList.remove('playing');
+        } else {
+            currentAudio.play();
+            isPlaying = true;
+            icon.classList.remove('fa-play');
+            icon.classList.add('fa-pause');
+            playPauseButton.classList.add('playing');
+        }
+    }
+}
+
+function toggleMusic(type) {
+    const track = musicTracks[type];
+    if (!track) {
+        console.error('Invalid music track type:', type);
+        return;
+    }
+
+    const musicButton = document.querySelector(`.music-button[onclick="toggleMusic('${type}')"]`);
+    const playPauseButton = document.getElementById('playPauseButton');
+    const icon = playPauseButton.querySelector('i');
+    
+    if (!musicButton) {
+        console.error('Music button not found for type:', type);
+        return;
+    }
+    
+    // Stop current music if playing
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+        isPlaying = false;
+        document.querySelectorAll('.music-button').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('currentTrack').textContent = 'Aucune musique en cours';
+        icon.classList.remove('fa-pause');
+        icon.classList.add('fa-play');
+        playPauseButton.classList.remove('playing');
+    }
+    
+    // If clicking the same button, just stop the music
+    if (musicButton.classList.contains('active')) {
+        return;
+    }
+    
+    // Start new music
+    currentAudio = new Audio(track.url);
+
+    const volumeSlider = document.getElementById('volumeSlider');
+    if (volumeSlider) {
+        currentAudio.volume = volumeSlider.value / 100;
+    } else {
+        currentAudio.volume = 0.5;
+    }
+    
+    currentAudio.loop = true;
+    
+    // Try to play the audio
+    const playAudio = async () => {
+        try {
+            await currentAudio.play();
+            isPlaying = true;
+            musicButton.classList.add('active');
+            document.getElementById('currentTrack').textContent = `${track.title} - ${track.description}`;
+            icon.classList.remove('fa-play');
+            icon.classList.add('fa-pause');
+            playPauseButton.classList.add('playing');
+        } catch (error) {
+            console.error('Error playing audio:', error);
+            document.getElementById('currentTrack').textContent = 'Cliquez sur le bouton pour démarrer la musique';
+            musicButton.classList.remove('active');
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play');
+            playPauseButton.classList.remove('playing');
+        }
+    };
+    
+    playAudio();
+}
+
+// Volume control
+const volumeSlider = document.getElementById('volumeSlider');
+if (volumeSlider) {
+    volumeSlider.addEventListener('input', (e) => {
+        if (currentAudio) {
+            currentAudio.volume = e.target.value / 100;
+        }
+    });
+}
+
+// Clean up audio when page is closed
+window.addEventListener('beforeunload', () => {
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+    }
 });
 
 // Initialize the app when the page loads
