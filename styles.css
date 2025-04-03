@@ -692,57 +692,74 @@ h1 {
     gap: 10px;
     margin: 20px 0;
     min-height: 60px;
+    padding: 20px;
+    background-color: var(--section-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .color-block {
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    transition: opacity 0.5s ease;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .color-buttons {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
     margin: 20px auto;
-    max-width: 300px;
+    max-width: 500px;
+    padding: 20px;
+    background-color: var(--section-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .color-button {
     width: 100px;
     height: 100px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-    box-shadow: 0 2px 4px var(--shadow-color);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .color-button:hover {
     transform: scale(1.05);
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.color-button:active {
+    transform: scale(0.95);
 }
 
 .start-button {
     background-color: var(--primary-color);
     color: white;
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 20px;
+    border-radius: 25px;
     cursor: pointer;
     font-size: 1.1em;
     margin-top: 20px;
-    transition: transform 0.2s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .start-button:hover {
-    transform: scale(1.05);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow-color);
 }
 
 .start-button:disabled {
     background-color: var(--border-color);
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
 }
 
 /* Pattern Memory Game Styles */
@@ -1095,4 +1112,229 @@ h1 {
         width: 95%;
         margin: 10px;
     }
+}
+
+/* Music Section Styles */
+.music-section {
+    margin-top: 20px;
+}
+
+.music-player {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.music-controls {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.music-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100px;
+}
+
+.music-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.music-button.active {
+    background-color: var(--secondary-color);
+}
+
+.music-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-color);
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.volume-control input[type="range"] {
+    flex: 1;
+    height: 5px;
+    -webkit-appearance: none;
+    background: var(--border-color);
+    border-radius: 5px;
+    outline: none;
+}
+
+.volume-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Fix dark mode color issues */
+[data-theme="dark"] .stat-box,
+[data-theme="dark"] .challenge-box,
+[data-theme="dark"] .mood-button,
+[data-theme="dark"] .game-card,
+[data-theme="dark"] .chat-messages,
+[data-theme="dark"] .contacts-list,
+[data-theme="dark"] .music-player,
+[data-theme="dark"] .games-section,
+[data-theme="dark"] .tracker-section,
+[data-theme="dark"] .mood-visualization,
+[data-theme="dark"] .mood-legend,
+[data-theme="dark"] .legend-item,
+[data-theme="dark"] .game-area,
+[data-theme="dark"] .game-header,
+[data-theme="dark"] .game-content,
+[data-theme="dark"] .color-game,
+[data-theme="dark"] .color-sequence,
+[data-theme="dark"] .color-buttons,
+[data-theme="dark"] .memory-grid,
+[data-theme="dark"] .memory-card,
+[data-theme="dark"] .word-game,
+[data-theme="dark"] .word-display,
+[data-theme="dark"] .letter-buttons,
+[data-theme="dark"] .pattern-game,
+[data-theme="dark"] .pattern-display,
+[data-theme="dark"] .pattern-buttons {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .stat-label,
+[data-theme="dark"] .game-card p,
+[data-theme="dark"] .chat-input input,
+[data-theme="dark"] .music-info,
+[data-theme="dark"] .game-card h3,
+[data-theme="dark"] .mood-visualization h3,
+[data-theme="dark"] .mood-legend,
+[data-theme="dark"] .legend-item,
+[data-theme="dark"] .game-header span,
+[data-theme="dark"] .color-game h3,
+[data-theme="dark"] .color-game p,
+[data-theme="dark"] .word-game h3,
+[data-theme="dark"] .word-game p,
+[data-theme="dark"] .pattern-game h3,
+[data-theme="dark"] .pattern-game p {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .progress-container {
+    background-color: var(--border-color);
+}
+
+[data-theme="dark"] .progress-bar {
+    background-color: var(--primary-color);
+}
+
+[data-theme="dark"] .volume-control input[type="range"] {
+    background: var(--border-color);
+}
+
+[data-theme="dark"] .volume-control input[type="range"]::-webkit-slider-thumb {
+    background: var(--primary-color);
+}
+
+[data-theme="dark"] .mood-button {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .mood-button:hover {
+    background-color: var(--section-bg);
+}
+
+[data-theme="dark"] .mood-button[data-mood="great"] { 
+    background-color: var(--mood-great); 
+    color: white;
+}
+
+[data-theme="dark"] .mood-button[data-mood="good"] { 
+    background-color: var(--mood-good); 
+    color: white;
+}
+
+[data-theme="dark"] .mood-button[data-mood="okay"] { 
+    background-color: var(--mood-okay); 
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .mood-button[data-mood="bad"] { 
+    background-color: var(--mood-bad); 
+    color: white;
+}
+
+[data-theme="dark"] .mood-button[data-mood="terrible"] { 
+    background-color: var(--mood-terrible); 
+    color: white;
+}
+
+[data-theme="dark"] .game-card {
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .game-card:hover {
+    background-color: var(--section-bg);
+}
+
+[data-theme="dark"] .game-area {
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .close-game {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .close-game:hover {
+    color: var(--error-color);
+}
+
+[data-theme="dark"] .color-button {
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .letter-button {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+[data-theme="dark"] .letter-button:hover {
+    background-color: var(--secondary-color);
+}
+
+[data-theme="dark"] .letter-button.used {
+    background-color: var(--border-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .pattern-button {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .pattern-button:hover {
+    background-color: var(--section-bg);
 } 
