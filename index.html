@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BreatheEasy - Votre Compagnon de Bien-être</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" aria-label="Changer le thème">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Tutorial Overlay -->
+    <div class="tutorial-overlay" id="tutorialOverlay">
+        <div class="tutorial-content">
+            <span class="tutorial-close">&times;</span>
+            <div class="tutorial-step" data-step="1">
+                <h3>Bienvenue sur BreatheEasy!</h3>
+                <p>Je vais vous guider à travers les principales fonctionnalités de l'application.</p>
+            </div>
+            <div class="tutorial-step" data-step="2">
+                <h3>Suivi de l'Humeur</h3>
+                <p>Enregistrez votre humeur quotidienne pour suivre votre progression. Cliquez sur l'émotion qui correspond le mieux à votre état d'esprit.</p>
+            </div>
+            <div class="tutorial-step" data-step="3">
+                <h3>Mini-Jeux</h3>
+                <p>Découvrez nos mini-jeux relaxants pour vous aider à vous détendre et à vous concentrer.</p>
+            </div>
+            <div class="tutorial-step" data-step="4">
+                <h3>Exercices de Respiration</h3>
+                <p>Pratiquez des exercices de respiration guidés pour réduire le stress et l'anxiété.</p>
+            </div>
+            <div class="tutorial-step" data-step="5">
+                <h3>Défis Quotidiens</h3>
+                <p>Participez à des défis quotidiens pour maintenir votre motivation et votre engagement.</p>
+            </div>
+            <div class="tutorial-step" data-step="6">
+                <h3>Support Communautaire</h3>
+                <p>Connectez-vous avec d'autres utilisateurs et partagez vos expériences dans un environnement sûr et bienveillant.</p>
+            </div>
+            <div class="tutorial-step" data-step="7">
+                <h3>Mode Sombre</h3>
+                <p>Basculez entre le mode clair et sombre selon vos préférences en cliquant sur l'icône de la lune/soleil.</p>
+            </div>
+            <div class="tutorial-step" data-step="8">
+                <h3>Prêt à Commencer!</h3>
+                <p>Vous êtes maintenant prêt à utiliser BreatheEasy. N'hésitez pas à explorer toutes les fonctionnalités!</p>
+            </div>
+            <div class="tutorial-navigation">
+                <button class="tutorial-prev" disabled>Précédent</button>
+                <button class="tutorial-next">Suivant</button>
+                <button class="tutorial-skip">Passer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Feedback Message -->
+    <div class="feedback-message"></div>
+
+    <!-- Achievement Badge -->
+    <div class="achievement-badge" style="display: none;">
+        <i class="fas fa-trophy"></i>
+        <span class="achievement-text"></span>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>BreatheEasy</h1>
+            <p class="subtitle">Votre compagnon quotidien pour le bien-être mental</p>
+        </header>
+
+        <!-- Game Stats Section -->
+        <div class="game-stats">
+            <div class="high-score">
+                <i class="fas fa-star"></i>
+                <span>Meilleur score: <span id="highScore">0</span></span>
+            </div>
+            <div class="level-indicator">
+                <i class="fas fa-level-up-alt"></i>
+                <span>Niveau: <span id="currentLevel">1</span></span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" style="width: 0%"></div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="section progress-section">
+            <h2>Votre Progression</h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <span class="stat-number" id="streakCounter">0</span>
+                    <span class="stat-label">Jours de Progression</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="pointsCounter">0</span>
+                    <span class="stat-label">Points</span>
+                </div>
+            </div>
+            <div class="streak-controls">
+                <button onclick="updateStreakManually(true)" class="success-button">Ajouter un Jour à la Série</button>
+                <button onclick="updateStreakManually(false)" class="reset-button">Réinitialiser la Série</button>
+            </div>
+            <div class="badges">
+                <h3>Vos Badges</h3>
+                <div id="badgeContainer" class="badge-container">
+                    <!-- Badges will be added here by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Challenge Section -->
+        <div class="section challenge-section">
+            <h2>Défi du Jour</h2>
+            <div id="dailyChallenge" class="challenge-box">
+                <p>Chargement du défi...</p>
+            </div>
+            <div id="breathingExercise" class="breathing-exercise" style="display: none;">
+                <div class="breathing-circle"></div>
+                <div class="breathing-text">Prêt à commencer ?</div>
+                <button onclick="startBreathingExercise()" class="primary-button">Démarrer l'Exercice</button>
+            </div>
+            <button onclick="completeChallenge()" class="primary-button">Compléter le Défi</button>
+        </div>
+
+        <!-- Mood & Cravings Tracker -->
+        <div class="section tracker-section">
+            <h2>Suivi de l'Humeur</h2>
+            <div class="mood-selector">
+                <button class="mood-button" data-mood="great" onclick="logMood('great')">😊 Excellent</button>
+                <button class="mood-button" data-mood="good" onclick="logMood('good')">🙂 Bien</button>
+                <button class="mood-button" data-mood="okay" onclick="logMood('okay')">😐 Correct</button>
+                <button class="mood-button" data-mood="bad" onclick="logMood('bad')">😕 Mauvais</button>
+                <button class="mood-button" data-mood="terrible" onclick="logMood('terrible')">😫 Terrible</button>
+            </div>
+            <div class="mood-visualization">
+                <h3>Votre Voyage d'Humeur</h3>
+                <canvas id="moodCanvas"></canvas>
+                <div class="mood-legend">
+                    <div class="legend-item"><span class="legend-color great"></span>Excellent</div>
+                    <div class="legend-item"><span class="legend-color good"></span>Bien</div>
+                    <div class="legend-item"><span class="legend-color okay"></span>Correct</div>
+                    <div class="legend-item"><span class="legend-color bad"></span>Mauvais</div>
+                    <div class="legend-item"><span class="legend-color terrible"></span>Terrible</div>
+                </div>
+            </div>
+            <div class="cravings-section">
+                <h3>Sentir l'envie de vapoter ?</h3>
+                <button onclick="showEmergencyHelp()" class="emergency-button">Besoin d'Aide ?</button>
+            </div>
+        </div>
+
+        <!-- Mini Games Section -->
+        <div class="section games-section">
+            <h2>Mini-Jeux</h2>
+            <div class="games-container">
+                <div class="game-card" onclick="startMemoryGame()">
+                    <h3>Jeu de Mémoire</h3>
+                    <p>Associez les paires de cartes pour gagner des points</p>
+                </div>
+                <div class="game-card" onclick="startBreathGame()">
+                    <h3>Bulles de Respiration</h3>
+                    <p>Pop des bulles tout en pratiquant votre respiration</p>
+                </div>
+                <div class="game-card" onclick="startWordGame()">
+                    <h3>Mots Mêlés</h3>
+                    <p>Réorganisez les lettres pour former des mots positifs</p>
+                </div>
+                <div class="game-card" onclick="startColorGame()">
+                    <h3>Match de Couleurs</h3>
+                    <p>Mémorisez et reproduisez la séquence de couleurs</p>
+                </div>
+                <div class="game-card" onclick="startPatternGame()">
+                    <h3>Mémoire des Motifs</h3>
+                    <p>Reproduisez le motif qui apparaît à l'écran</p>
+                </div>
+            </div>
+            <div id="gameArea" class="game-area" style="display: none;">
+                <div class="game-header">
+                    <span id="gameScore">Score: 0</span>
+                    <button onclick="closeGame()" class="close-game">×</button>
+                </div>
+                <div id="gameContent"></div>
+            </div>
+        </div>
+
+        <!-- Music Section -->
+        <div class="section music-section">
+            <h2>Musique Relaxante</h2>
+            <div class="music-player">
+                <div class="music-controls">
+                    <button class="music-button" onclick="toggleMusic('classical')">
+                        <i class="fas fa-music"></i> Classique
+                    </button>
+                    <button class="music-button" onclick="toggleMusic('meditation')">
+                        <i class="fas fa-spa"></i> Méditation
+                    </button>
+                    <button class="music-button" onclick="toggleMusic('nature')">
+                        <i class="fas fa-tree"></i> Nature
+                    </button>
+                </div>
+                <div class="playback-controls">
+                    <button id="playPauseButton" class="play-pause-button" onclick="togglePlayPause()">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                <div class="volume-control">
+                    <i class="fas fa-volume-up"></i>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="50" aria-label="Volume control">
+                </div>
+                <div id="currentTrack" class="current-track">Aucune musique en cours</div>
+            </div>
+        </div>
+
+        <!-- Community Support -->
+        <div class="section community-section">
+            <h2>Support Communautaire</h2>
+            <div class="chat-container">
+                <div id="chatMessages" class="chat-messages">
+                    <!-- Messages will be added here -->
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Partagez vos pensées...">
+                    <button onclick="sendMessage()" class="primary-button">Envoyer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Contacts -->
+        <div class="section contacts-section">
+            <h2>Contacts d'Urgence</h2>
+            <div id="contactsList" class="contacts-list">
+                <!-- Contacts will be added here -->
+            </div>
+            <button onclick="addContact()" class="secondary-button">Ajouter un Contact</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
