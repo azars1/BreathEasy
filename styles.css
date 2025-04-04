@@ -1,0 +1,1379 @@
+:root {
+    /* Light theme variables */
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --accent-color: #FFC107;
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --section-bg: #f0f0f0;
+    --border-color: #333333;
+    --mood-great: #4CAF50;
+    --mood-good: #8BC34A;
+    --mood-okay: #FFC107;
+    --mood-bad: #FF9800;
+    --mood-terrible: #F44336;
+    --success-color: #4CAF50;
+    --error-color: #f44336;
+    --loading-color: #2196F3;
+    --card-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-text: #000000;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+    --primary-color: #66BB6A;
+    --secondary-color: #42A5F5;
+    --accent-color: #FFD54F;
+    --background-color: #000000;
+    --text-color: #ffffff;
+    --section-bg: #1a1a1a;
+    --border-color: #cccccc;
+    --mood-great: #66BB6A;
+    --mood-good: #81C784;
+    --mood-okay: #FFD54F;
+    --mood-bad: #FFA726;
+    --mood-terrible: #EF5350;
+    --success-color: #66BB6A;
+    --error-color: #EF5350;
+    --loading-color: #42A5F5;
+    --card-bg: #1a1a1a;
+    --input-bg: #333333;
+    --input-text: #ffffff;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--section-bg);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 8px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.subtitle {
+    margin: 10px 0 0;
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+.section {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 15px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    min-width: 120px;
+    border: 1px solid var(--border-color);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.challenge-box {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.mood-selector {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.mood-button {
+    flex: 1;
+    min-width: 100px;
+    padding: 15px;
+    font-size: 1.2em;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    color: var(--text-color);
+}
+
+.mood-button:hover {
+    transform: scale(1.05);
+}
+
+.emergency-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.emergency-button:hover {
+    background-color: #c82333;
+}
+
+.chat-container {
+    margin-top: 15px;
+}
+
+.chat-messages {
+    height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+}
+
+.primary-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.secondary-button {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.contacts-list {
+    margin-top: 15px;
+}
+
+/* Breathing Exercise Styles */
+.breathing-exercise {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.breathing-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    margin: 20px auto;
+    transition: all 4s ease-in-out;
+}
+
+.breathing-circle.inhale {
+    transform: scale(1.5);
+    background-color: #45a049;
+}
+
+.breathing-circle.hold {
+    transform: scale(1.3);
+    background-color: #3d8b40;
+}
+
+.breathing-circle.exhale {
+    transform: scale(1);
+    background-color: var(--primary-color);
+}
+
+.breathing-text {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: var(--text-color);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.breathing-pattern-info {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Enhanced Mood Visualization Styles */
+.mood-visualization {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#moodCanvas {
+    width: 100%;
+    height: 200px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 10px 0;
+    position: relative;
+    cursor: pointer;
+}
+
+.mood-note-tooltip {
+    position: absolute;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 0.8em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    pointer-events: none;
+    z-index: 1000;
+    max-width: 200px;
+}
+
+.mood-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.legend-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.legend-color.great { background-color: var(--mood-great); }
+.legend-color.good { background-color: var(--mood-good); }
+.legend-color.okay { background-color: var(--mood-okay); }
+.legend-color.bad { background-color: var(--mood-bad); }
+.legend-color.terrible { background-color: var(--mood-terrible); }
+
+/* Mood Button Colors with Hover Effects */
+.mood-button[data-mood="great"] { 
+    background-color: var(--mood-great); 
+    color: white;
+    transition: all 0.3s ease;
+}
+.mood-button[data-mood="good"] { 
+    background-color: var(--mood-good); 
+    color: white;
+    transition: all 0.3s ease;
+}
+.mood-button[data-mood="okay"] { 
+    background-color: var(--mood-okay); 
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+.mood-button[data-mood="bad"] { 
+    background-color: var(--mood-bad); 
+    color: white;
+    transition: all 0.3s ease;
+}
+.mood-button[data-mood="terrible"] { 
+    background-color: var(--mood-terrible); 
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.mood-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .mood-selector {
+        flex-direction: column;
+    }
+    
+    .mood-button {
+        width: 100%;
+    }
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    animation: slideIn 0.3s ease-in-out;
+    border: 1px solid var(--border-color);
+}
+
+.mood-indicator {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    margin: 10px 0;
+    text-transform: capitalize;
+}
+
+.time-indicator {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 15px;
+    background-color: #e9ecef;
+    color: #495057;
+    font-size: 0.9em;
+    margin: 10px 0;
+    text-transform: capitalize;
+}
+
+#noteContent {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    line-height: 1.6;
+    border: 1px solid var(--border-color);
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: var(--text-color);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Streak Controls */
+.streak-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.streak-controls button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.success-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.success-button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+.reset-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.reset-button:hover {
+    background-color: #da190b;
+    transform: translateY(-2px);
+}
+
+/* Mini Games Section */
+.games-section {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.games-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.game-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.game-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.game-card p {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.game-area {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    z-index: 1000;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.close-game {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 0 10px;
+}
+
+.close-game:hover {
+    color: #f44336;
+}
+
+/* Memory Game Styles */
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.memory-card {
+    aspect-ratio: 1;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.memory-card.flipped {
+    transform: rotateY(180deg);
+    background-color: white;
+    color: var(--primary-color);
+}
+
+.memory-card.matched {
+    background-color: var(--success-color);
+    cursor: default;
+}
+
+/* Breath Game Styles */
+.breath-game {
+    text-align: center;
+}
+
+.bubble {
+    position: absolute;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.bubble:hover {
+    transform: scale(1.1);
+}
+
+/* Word Game Styles */
+.word-game {
+    text-align: center;
+}
+
+.word-display {
+    font-size: 24px;
+    margin: 20px 0;
+    letter-spacing: 5px;
+}
+
+.letter-buttons {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.letter-button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.letter-button:hover {
+    background-color: #45a049;
+}
+
+.letter-button.used {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Color Match Game Styles */
+.color-game {
+    text-align: center;
+}
+
+.color-sequence {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    min-height: 60px;
+    padding: 20px;
+    background-color: var(--section-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.color-block {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.color-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 20px auto;
+    max-width: 500px;
+    padding: 20px;
+    background-color: var(--section-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.color-button {
+    width: 100px;
+    height: 100px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.color-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.color-button:active {
+    transform: scale(0.95);
+}
+
+.start-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.start-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.start-button:disabled {
+    background-color: var(--border-color);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Pattern Memory Game Styles */
+.pattern-game {
+    text-align: center;
+}
+
+.pattern-display {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    min-height: 60px;
+}
+
+.pattern-block {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    transition: opacity 0.5s ease;
+}
+
+.pattern-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.pattern-button {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.pattern-button:hover {
+    transform: scale(1.1);
+}
+
+/* Loading Animation */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--loading-color);
+    border-top: 5px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Visual Feedback */
+.feedback-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 30px;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+    animation: slideDown 0.3s ease-out;
+    display: none;
+}
+
+.feedback-message.success {
+    background-color: var(--success-color);
+}
+
+.feedback-message.error {
+    background-color: var(--error-color);
+}
+
+@keyframes slideDown {
+    from { transform: translate(-50%, -100%); }
+    to { transform: translate(-50%, 0); }
+}
+
+/* Progress Bar */
+.progress-container {
+    width: 100%;
+    height: 10px;
+    background-color: var(--border-color);
+    border-radius: 5px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background-color: var(--border-color);
+}
+
+/* Game Stats */
+.game-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: var(--section-bg);
+    border-radius: 8px;
+}
+
+.high-score {
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+.level-indicator {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Achievement Badge */
+.achievement-badge {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideIn 0.3s ease-out;
+    z-index: 1000;
+}
+
+.achievement-badge i {
+    font-size: 24px;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+/* Tutorial Overlay */
+.tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.tutorial-content {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 90%;
+    width: 500px;
+    position: relative;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+.tutorial-step {
+    display: none;
+    text-align: center;
+}
+
+.tutorial-step.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.tutorial-step h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.tutorial-step p {
+    color: var(--text-color);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.tutorial-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.tutorial-close:hover {
+    color: var(--primary-color);
+}
+
+.tutorial-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.tutorial-navigation button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.tutorial-prev {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.tutorial-next {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.tutorial-skip {
+    background-color: var(--error-color);
+    color: white;
+}
+
+.tutorial-navigation button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.tutorial-navigation button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.tutorial-progress {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.tutorial-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tutorial-dot.active {
+    background-color: var(--primary-color);
+    transform: scale(1.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+.screen-reader-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Responsive Improvements */
+@media (max-width: 600px) {
+    .game-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .feedback-message {
+        width: 90%;
+        text-align: center;
+    }
+    
+    .tutorial-content {
+        width: 95%;
+        margin: 10px;
+    }
+}
+
+/* Music Section Styles */
+.music-section {
+    background-color: var(--section-bg);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.music-player {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.music-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.playback-controls {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.play-pause-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.play-pause-button:hover {
+    background-color: var(--primary-color-dark);
+    transform: scale(1.1);
+}
+
+.play-pause-button:active {
+    transform: scale(0.95);
+}
+
+.play-pause-button i {
+    transition: transform 0.3s ease;
+}
+
+.play-pause-button.playing i.fa-play {
+    transform: rotate(180deg);
+}
+
+.music-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.music-button:hover {
+    background-color: var(--primary-color-dark);
+    transform: translateY(-2px);
+}
+
+.music-button.active {
+    background-color: var(--accent-color);
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.volume-control input[type="range"] {
+    flex: 1;
+    height: 5px;
+    -webkit-appearance: none;
+    background: var(--border-color);
+    border-radius: 5px;
+    outline: none;
+}
+
+.volume-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.current-track {
+    text-align: center;
+    color: var(--text-color);
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+/* Fix dark mode color issues */
+[data-theme="dark"] .stat-box,
+[data-theme="dark"] .challenge-box,
+[data-theme="dark"] .mood-button,
+[data-theme="dark"] .game-card,
+[data-theme="dark"] .chat-messages,
+[data-theme="dark"] .contacts-list,
+[data-theme="dark"] .music-player,
+[data-theme="dark"] .games-section,
+[data-theme="dark"] .tracker-section,
+[data-theme="dark"] .mood-visualization,
+[data-theme="dark"] .mood-legend,
+[data-theme="dark"] .legend-item,
+[data-theme="dark"] .game-area,
+[data-theme="dark"] .game-header,
+[data-theme="dark"] .game-content,
+[data-theme="dark"] .color-game,
+[data-theme="dark"] .color-sequence,
+[data-theme="dark"] .color-buttons,
+[data-theme="dark"] .memory-grid,
+[data-theme="dark"] .memory-card,
+[data-theme="dark"] .word-game,
+[data-theme="dark"] .word-display,
+[data-theme="dark"] .letter-buttons,
+[data-theme="dark"] .pattern-game,
+[data-theme="dark"] .pattern-display,
+[data-theme="dark"] .pattern-buttons {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .stat-label,
+[data-theme="dark"] .game-card p,
+[data-theme="dark"] .chat-input input,
+[data-theme="dark"] .music-info,
+[data-theme="dark"] .game-card h3,
+[data-theme="dark"] .mood-visualization h3,
+[data-theme="dark"] .mood-legend,
+[data-theme="dark"] .legend-item,
+[data-theme="dark"] .game-header span,
+[data-theme="dark"] .color-game h3,
+[data-theme="dark"] .color-game p,
+[data-theme="dark"] .word-game h3,
+[data-theme="dark"] .word-game p,
+[data-theme="dark"] .pattern-game h3,
+[data-theme="dark"] .pattern-game p {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .progress-container {
+    background-color: var(--border-color);
+}
+
+[data-theme="dark"] .progress-bar {
+    background-color: var(--primary-color);
+}
+
+[data-theme="dark"] .volume-control input[type="range"] {
+    background: var(--border-color);
+}
+
+[data-theme="dark"] .volume-control input[type="range"]::-webkit-slider-thumb {
+    background: var(--primary-color);
+}
+
+[data-theme="dark"] .mood-button {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .mood-button:hover {
+    background-color: var(--section-bg);
+}
+
+[data-theme="dark"] .mood-button[data-mood="great"] { 
+    background-color: var(--mood-great); 
+    color: white;
+}
+
+[data-theme="dark"] .mood-button[data-mood="good"] { 
+    background-color: var(--mood-good); 
+    color: white;
+}
+
+[data-theme="dark"] .mood-button[data-mood="okay"] { 
+    background-color: var(--mood-okay); 
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .mood-button[data-mood="bad"] { 
+    background-color: var(--mood-bad); 
+    color: white;
+}
+
+[data-theme="dark"] .mood-button[data-mood="terrible"] { 
+    background-color: var(--mood-terrible); 
+    color: white;
+}
+
+[data-theme="dark"] .game-card {
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .game-card:hover {
+    background-color: var(--section-bg);
+}
+
+[data-theme="dark"] .game-area {
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .close-game {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .close-game:hover {
+    color: var(--error-color);
+}
+
+[data-theme="dark"] .color-button {
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .letter-button {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+[data-theme="dark"] .letter-button:hover {
+    background-color: var(--secondary-color);
+}
+
+[data-theme="dark"] .letter-button.used {
+    background-color: var(--border-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .pattern-button {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .pattern-button:hover {
+    background-color: var(--section-bg);
+} 
