@@ -623,8 +623,14 @@ h1 {
 }
 
 .memory-card.matched {
-    background-color: var(--success-color);
+    background-color: #4CAF50;
+    color: white;
     cursor: default;
+    transform: none;
+}
+
+.memory-card.matched:hover {
+    transform: none;
 }
 
 /* Breath Game Styles */

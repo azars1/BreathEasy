@@ -187,6 +187,8 @@ function startColorGame() {
     const startButton = gameContent.querySelector('.start-button');
     startButton.onclick = () => {
         if (!isPlaying) {
+            colorSequence = []; // Reset sequence when starting new game
+            userSequence = [];
             isPlaying = true;
             startButton.disabled = true;
             addToSequence();
@@ -248,6 +250,9 @@ function checkSequence() {
         isPlaying = false;
         document.querySelector('.start-button').disabled = false;
         alert('Séquence incorrecte ! Essayez encore !');
+        // Reset sequences when incorrect
+        colorSequence = [];
+        userSequence = [];
         return;
     }
     
@@ -1076,15 +1081,33 @@ function showGameArea() {
 
 function closeGame() {
     document.getElementById('gameArea').style.display = 'none';
+    
+    // Reset only the current game's state
+    switch(currentGame) {
+        case 'memory':
+            flippedCards = [];
+            matchedPairs = 0;
+            break;
+        case 'breath':
+            activeBubbles = 0;
+            break;
+        case 'word':
+            selectedLetters = [];
+            break;
+        case 'color':
+            colorSequence = [];
+            userSequence = [];
+            isPlaying = false;
+            break;
+        case 'pattern':
+            patternSequence = [];
+            playerPatternSequence = [];
+            isPatternPlaying = false;
+            break;
+    }
+    
     currentGame = null;
     gameScore = 0;
-    selectedLetters = [];
-    flippedCards = [];
-    matchedPairs = 0;
-    activeBubbles = 0;
-    colorSequence = [];
-    userSequence = [];
-    isPlaying = false;
     updateGameScore();
 }
 
@@ -1257,7 +1280,7 @@ function startGame(gameType) {
                 startMemoryGame();
                 break;
             case 'breath':
-                startBreathingExercise();
+                startBreathGame();
                 break;
             case 'word':
                 startWordGame();
@@ -1266,7 +1289,7 @@ function startGame(gameType) {
                 startColorGame();
                 break;
             case 'pattern':
-                startPatternSequence();
+                startPatternGame();
                 break;
         }
         hideLoading();
