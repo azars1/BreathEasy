@@ -217,7 +217,7 @@ function addToSequence() {
     colorSequence.push(newColor);
     
     const sequenceDisplay = document.querySelector('.color-sequence');
-    sequenceDisplay.innerHTML = '';
+    sequenceDisplay.innerHTML = '<p class="sequence-status">Mémorisez la séquence...</p>';
     
     // Show the sequence
     colorSequence.forEach((color, index) => {
@@ -236,8 +236,7 @@ function addToSequence() {
     
     // Hide the sequence after showing it
     setTimeout(() => {
-        sequenceDisplay.innerHTML = '';
-        isPlaying = true;
+        sequenceDisplay.innerHTML = '<p class="sequence-status">Répétez la séquence !</p>';
     }, colorSequence.length * 1000 + 500);
 }
 
@@ -384,7 +383,13 @@ function checkPatternMatch(button) {
     if (pattern !== patternSequence[index]) {
         setTimeout(() => {
             alert('Motif incorrect ! Essayez encore !');
-            closeGame();
+            // Reset the game state instead of closing it
+            playerPatternSequence = [];
+            patternSequence = [];
+            isPatternPlaying = false;
+            // Update the display to show it's ready for a new attempt
+            const patternDisplay = document.querySelector('.pattern-display');
+            patternDisplay.innerHTML = '<p>Cliquez sur "Démarrer le Motif" pour réessayer</p>';
         }, 500);
         return;
     }
@@ -1009,6 +1014,7 @@ function createBubble(container) {
 // Word game functions
 let selectedLetters = [];
 let currentWord = null;
+let isWordGameProcessing = false;
 
 function startWordGame() {
     currentGame = 'word';
@@ -1044,6 +1050,8 @@ function startWordGame() {
 }
 
 function selectLetter(button, letter) {
+    if (isWordGameProcessing) return;
+    
     if (button.classList.contains('used')) {
         button.classList.remove('used');
         selectedLetters = selectedLetters.filter(l => l !== letter);
@@ -1052,6 +1060,7 @@ function selectLetter(button, letter) {
         return;
     }
     
+    isWordGameProcessing = true;
     selectedLetters.push(letter);
     button.classList.add('used');
     
@@ -1063,14 +1072,21 @@ function selectLetter(button, letter) {
             gameScore += 20;
             updateGameScore();
             setTimeout(() => {
+                isWordGameProcessing = false;
                 startWordGame();
             }, 1000);
         } else {
             setTimeout(() => {
+                isWordGameProcessing = false;
                 alert('Essayez encore !');
                 closeGame();
             }, 500);
         }
+    } else {
+        // Add a small delay before allowing the next letter selection
+        setTimeout(() => {
+            isWordGameProcessing = false;
+        }, 300);
     }
 }
 
@@ -1089,6 +1105,12 @@ function closeGame() {
             matchedPairs = 0;
             break;
         case 'breath':
+            // Clean up all bubbles
+            const bubbleContainer = document.getElementById('bubbleContainer');
+            if (bubbleContainer) {
+                const bubbles = bubbleContainer.querySelectorAll('.bubble');
+                bubbles.forEach(bubble => bubble.remove());
+            }
             activeBubbles = 0;
             break;
         case 'word':

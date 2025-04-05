@@ -718,6 +718,16 @@ h1 {
     text-align: center;
 }
 
+.sequence-status {
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--section-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
 .color-sequence {
     display: flex;
     justify-content: center;
