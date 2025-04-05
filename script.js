@@ -1388,11 +1388,6 @@ function toggleMusic(type) {
         playPauseButton.classList.remove('playing');
     }
     
-    // If clicking the same button, just stop the music
-    if (musicButton.classList.contains('active')) {
-        return;
-    }
-    
     // Open the music in a new tab
     window.open(track.url, '_blank');
     
