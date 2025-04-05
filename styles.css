@@ -609,17 +609,21 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 32px;
     color: white;
     transition: transform 0.3s ease, background-color 0.3s ease;
     transform-style: preserve-3d;
     perspective: 1000px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    min-height: 80px;
 }
 
 .memory-card.flipped {
     transform: rotateY(180deg);
-    background-color: white;
+    background-color: #f0f0f0;
     color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .memory-card.matched {
@@ -627,10 +631,32 @@ h1 {
     color: white;
     cursor: default;
     transform: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .memory-card.matched:hover {
     transform: none;
+}
+
+/* Dark mode specific styles for memory cards */
+[data-theme="dark"] .memory-card {
+    background-color: var(--secondary-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--accent-color);
+}
+
+[data-theme="dark"] .memory-card.flipped {
+    background-color: #333333;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .memory-card.matched {
+    background-color: var(--success-color);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--accent-color);
 }
 
 /* Breath Game Styles */
