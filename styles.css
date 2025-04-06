@@ -1178,45 +1178,6 @@ h1 {
     justify-content: center;
 }
 
-.playback-controls {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-}
-
-.play-pause-button {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: none;
-    background-color: var(--primary-color);
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2em;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.play-pause-button:hover {
-    background-color: var(--primary-color-dark);
-    transform: scale(1.1);
-}
-
-.play-pause-button:active {
-    transform: scale(0.95);
-}
-
-.play-pause-button i {
-    transition: transform 0.3s ease;
-}
-
-.play-pause-button.playing i.fa-play {
-    transform: rotate(180deg);
-}
-
 .music-button {
     padding: 10px 20px;
     border: none;
@@ -1237,32 +1198,6 @@ h1 {
 
 .music-button.active {
     background-color: var(--accent-color);
-}
-
-.volume-control {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    max-width: 300px;
-}
-
-.volume-control input[type="range"] {
-    flex: 1;
-    height: 5px;
-    -webkit-appearance: none;
-    background: var(--border-color);
-    border-radius: 5px;
-    outline: none;
-}
-
-.volume-control input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 15px;
-    height: 15px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    cursor: pointer;
 }
 
 .current-track {
@@ -1327,49 +1262,6 @@ h1 {
 
 [data-theme="dark"] .progress-bar {
     background-color: var(--primary-color);
-}
-
-[data-theme="dark"] .volume-control input[type="range"] {
-    background: var(--border-color);
-}
-
-[data-theme="dark"] .volume-control input[type="range"]::-webkit-slider-thumb {
-    background: var(--primary-color);
-}
-
-[data-theme="dark"] .mood-button {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-}
-
-[data-theme="dark"] .mood-button:hover {
-    background-color: var(--section-bg);
-}
-
-[data-theme="dark"] .mood-button[data-mood="great"] { 
-    background-color: var(--mood-great); 
-    color: white;
-}
-
-[data-theme="dark"] .mood-button[data-mood="good"] { 
-    background-color: var(--mood-good); 
-    color: white;
-}
-
-[data-theme="dark"] .mood-button[data-mood="okay"] { 
-    background-color: var(--mood-okay); 
-    color: var(--text-color);
-}
-
-[data-theme="dark"] .mood-button[data-mood="bad"] { 
-    background-color: var(--mood-bad); 
-    color: white;
-}
-
-[data-theme="dark"] .mood-button[data-mood="terrible"] { 
-    background-color: var(--mood-terrible); 
-    color: white;
 }
 
 [data-theme="dark"] .game-card {

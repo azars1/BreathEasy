@@ -1381,30 +1381,6 @@ const musicTracks = {
     }
 };
 
-function togglePlayPause() {
-    const playPauseButton = document.getElementById('playPauseButton');
-    const icon = playPauseButton.querySelector('i');
-    
-    if (currentAudio) {
-        if (isPlaying) {
-            currentAudio.pause();
-            isPlaying = false;
-            icon.classList.remove('fa-pause');
-            icon.classList.add('fa-play');
-            playPauseButton.classList.remove('playing');
-        } else {
-            currentAudio.play().catch(error => {
-                console.error('Error playing audio:', error);
-                document.getElementById('currentTrack').textContent = 'Erreur de lecture. Veuillez réessayer.';
-            });
-            isPlaying = true;
-            icon.classList.remove('fa-play');
-            icon.classList.add('fa-pause');
-            playPauseButton.classList.add('playing');
-        }
-    }
-}
-
 function toggleMusic(type) {
     const track = musicTracks[type];
     if (!track) {
@@ -1413,8 +1389,6 @@ function toggleMusic(type) {
     }
 
     const musicButton = document.querySelector(`.music-button[onclick="toggleMusic('${type}')"]`);
-    const playPauseButton = document.getElementById('playPauseButton');
-    const icon = playPauseButton.querySelector('i');
     
     if (!musicButton) {
         console.error('Music button not found for type:', type);
@@ -1425,12 +1399,8 @@ function toggleMusic(type) {
     if (currentAudio) {
         currentAudio.pause();
         currentAudio = null;
-        isPlaying = false;
         document.querySelectorAll('.music-button').forEach(btn => btn.classList.remove('active'));
         document.getElementById('currentTrack').textContent = 'Aucune musique en cours';
-        icon.classList.remove('fa-pause');
-        icon.classList.add('fa-play');
-        playPauseButton.classList.remove('playing');
     }
     
     // Open the music in a new tab
@@ -1442,16 +1412,6 @@ function toggleMusic(type) {
     // Then add active class to the clicked button
     musicButton.classList.add('active');
     document.getElementById('currentTrack').textContent = `${track.title} - ${track.description}`;
-}
-
-// Volume control
-const volumeSlider = document.getElementById('volumeSlider');
-if (volumeSlider) {
-    volumeSlider.addEventListener('input', (e) => {
-        if (currentAudio) {
-            currentAudio.volume = e.target.value / 100;
-        }
-    });
 }
 
 // Clean up audio when page is closed
